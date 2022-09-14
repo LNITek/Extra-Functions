@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>ExtraFunctions</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <SignAssembly>False</SignAssembly>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Tekknow</Authors>
+    <Company>LNI.Tek</Company>
+    <Description>A Bunch Of Extra Bells And Whistles.</Description>
+    <AssemblyVersion>3.0.0</AssemblyVersion>
+    <FileVersion>3.0.0</FileVersion>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageId>ExtraFunctions</PackageId>
+    <Title>Extra Functions</Title>
+    <AssemblyName>ExtraFunctions</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Error Icon.png" />
+    <None Remove="Resources\Info Icon.png" />
+    <None Remove="Resources\None Icon.png" />
+    <None Remove="Resources\Notifi Icon.png" />
+    <None Remove="Resources\Question Icon.png" />
+    <None Remove="Resources\Warning Icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Error Icon.png" />
+    <EmbeddedResource Include="Resources\Info Icon.png" />
+    <EmbeddedResource Include="Resources\None Icon.png" />
+    <EmbeddedResource Include="Resources\Notifi Icon.png" />
+    <EmbeddedResource Include="Resources\Question Icon.png" />
+    <EmbeddedResource Include="Resources\Warning Icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ExInput\ExInputRes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExInputRes.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="ExInput\ExInputRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExInputRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Themes\Generic.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
+    </Page>
+  </ItemGroup>
+
+</Project>
