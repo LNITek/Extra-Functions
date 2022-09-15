@@ -11,8 +11,8 @@
     <Authors>Tekknow</Authors>
     <Company>LNI.Tek</Company>
     <Description>A Bunch Of Extra Bells And Whistles.</Description>
-    <AssemblyVersion>3.0.0</AssemblyVersion>
-    <FileVersion>3.0.0</FileVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageId>ExtraFunctions</PackageId>
     <Title>Extra Functions</Title>
