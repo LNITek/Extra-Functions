@@ -11,7 +11,7 @@ Install-Package Extra-Functions
 ```
 
 ##Usage
----
+
 | Extra Inputs | 
 | --- |
 | [Text Input Propmt] |
