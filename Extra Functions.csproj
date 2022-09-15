@@ -17,6 +17,12 @@
     <PackageId>ExtraFunctions</PackageId>
     <Title>Extra Functions</Title>
     <AssemblyName>ExtraFunctions</AssemblyName>
+    <PackageProjectUrl>https://github.com/Tekknow1580/Extra-Functions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Tekknow1580/Extra-Functions</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageTags>Popup, NumericUpDown, Extra</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -50,6 +56,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExInputRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
