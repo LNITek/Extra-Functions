@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace ExtraFunctions.Components
 {
@@ -21,6 +22,8 @@ namespace ExtraFunctions.Components
         private DigitBox edtValue;
         private Button btnUp;
         private Button btnDown;
+        private Image imgUp;
+        private Image imgDown;
         #pragma warning restore CS8618
 
         /// <summary>
@@ -31,16 +34,26 @@ namespace ExtraFunctions.Components
             edtValue = (DigitBox)Template.FindName("PART_Value", this);
             btnUp = (Button)Template.FindName("PART_Up", this);
             btnDown = (Button)Template.FindName("PART_Down", this);
+            imgUp = (Image)Template.FindName("PART_UpIcon", this);
+            imgDown = (Image)Template.FindName("PART_DownIcon", this);
 
             edtValue.SetBinding(TextBox.TextProperty, new Binding(nameof(Value)) { Source = this, Mode = BindingMode.TwoWay });
+            edtValue.SetBinding(TextBox.TextAlignmentProperty, new Binding(nameof(TextAlignment)) { Source = this });
             btnUp.SetBinding(IsEnabledProperty, new Binding(nameof(UpEnabled)) { Source = this });
             btnDown.SetBinding(IsEnabledProperty, new Binding(nameof(DownEnabled)) { Source = this });
+
+            imgUp.Source = Imaging.CreateBitmapSourceFromHBitmap( ExComponents.ExComponentsRes.Arrow_Up.GetHbitmap(), 
+                IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(100, 100));
+            imgDown.Source = Imaging.CreateBitmapSourceFromHBitmap(ExComponents.ExComponentsRes.Arrow_Down.GetHbitmap(),
+                IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(100, 100));
 
             btnUp.Click += UpClick;
             btnDown.Click += DownClick;
 
             UpEnabled = Value < MaxValue;
             DownEnabled = Value > MinValue;
+            imgUp.Opacity = UpEnabled ? 1 : .25;
+            imgDown.Opacity = DownEnabled ? 1 : .25;
 
             base.OnApplyTemplate();
         }
@@ -49,7 +62,8 @@ namespace ExtraFunctions.Components
         /// Gets or sets the value of the Number Edit.
         /// </summary>
         public static DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(double), typeof(NumericUpDown), new PropertyMetadata(.0, ValuePropertyChanged));
+            DependencyProperty.Register("Value", typeof(double), typeof(NumericUpDown), 
+                new PropertyMetadata(.0, ValuePropertyChanged));
 
         private static void ValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -59,6 +73,12 @@ namespace ExtraFunctions.Components
                 NumEdit.OnPropertyChanged("Value");
                 NumEdit.UpEnabled = (double)e.NewValue < NumEdit.MaxValue;
                 NumEdit.DownEnabled = (double)e.NewValue > NumEdit.MinValue;
+                try
+                {
+                    NumEdit.imgUp.Opacity = NumEdit.UpEnabled ? 1 : .25;
+                    NumEdit.imgDown.Opacity = NumEdit.DownEnabled ? 1 : .25;
+                }
+                catch { }
             }
         }
         
@@ -89,6 +109,13 @@ namespace ExtraFunctions.Components
         /// </summary>
         public static DependencyProperty DownProperty =
             DependencyProperty.Register("DownEnabled", typeof(bool), typeof(NumericUpDown), new PropertyMetadata(false));
+
+        /// <summary>
+        /// The Alignment Of The Value
+        /// </summary>
+        public static DependencyProperty TextAlignmentProperty =
+            DependencyProperty.Register("TextAlignment", typeof(TextAlignment), typeof(NumericUpDown),
+                new PropertyMetadata(TextAlignment.Left));
 
         /// <summary>
         /// Event For When The Value Changes
@@ -163,6 +190,15 @@ namespace ExtraFunctions.Components
         {
             get { return (bool)GetValue(DownProperty); }
             set { SetValue(DownProperty, value); OnPropertyChanged("DownEnabled"); }
+        }
+
+        /// <summary>
+        /// The Alignment Of The Value
+        /// </summary>
+        public TextAlignment TextAlignment
+        {
+            get { return (TextAlignment)GetValue(TextAlignmentProperty); }
+            set { SetValue(TextAlignmentProperty, value); OnPropertyChanged("TextAlignment"); }
         }
 
         /// <summary>
