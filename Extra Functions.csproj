@@ -12,7 +12,7 @@
     <Company>LNI.Tek</Company>
     <Description>A Bunch Of Extra Bells And Whistles.</Description>
     <AssemblyVersion>1.1.0</AssemblyVersion>
-    <FileVersion>1.1.0</FileVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageId>ExtraFunctions</PackageId>
     <Title>Extra Functions</Title>
@@ -27,6 +27,7 @@
     <OutputType>Library</OutputType>
     <ApplicationIcon>ExFun Logo.ico</ApplicationIcon>
     <PackageIcon>Logo.png</PackageIcon>
+    <Version>$(AssemblyVersion)</Version>
   </PropertyGroup>
 
   <ItemGroup>
