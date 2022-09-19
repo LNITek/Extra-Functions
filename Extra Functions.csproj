@@ -11,8 +11,8 @@
     <Authors>Tekknow</Authors>
     <Company>LNI.Tek</Company>
     <Description>A Bunch Of Extra Bells And Whistles.</Description>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageId>ExtraFunctions</PackageId>
     <Title>Extra Functions</Title>
@@ -23,9 +23,15 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageTags>Popup, NumericUpDown, Extra</PackageTags>
+    <PackageReleaseNotes>Check The Change Log!</PackageReleaseNotes>
+    <OutputType>Library</OutputType>
+    <ApplicationIcon>ExFun Logo.ico</ApplicationIcon>
+    <PackageIcon>Logo.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Arrow Down.png" />
+    <None Remove="Resources\Arrow Up.png" />
     <None Remove="Resources\Error Icon.png" />
     <None Remove="Resources\Info Icon.png" />
     <None Remove="Resources\None Icon.png" />
@@ -35,6 +41,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="ExFun Logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Arrow Down.png" />
+    <EmbeddedResource Include="Resources\Arrow Up.png" />
     <EmbeddedResource Include="Resources\Error Icon.png" />
     <EmbeddedResource Include="Resources\Info Icon.png" />
     <EmbeddedResource Include="Resources\None Icon.png" />
@@ -44,6 +56,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\..\..\..\Pictures\Projects\Extra Functions\Logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ExComponents\ExComponentsRes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExComponentsRes.resx</DependentUpon>
+    </Compile>
     <Compile Update="ExInput\ExInputRes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -52,6 +76,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="ExComponents\ExComponentsRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExComponentsRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="ExInput\ExInputRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExInputRes.Designer.cs</LastGenOutput>
