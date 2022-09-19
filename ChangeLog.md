@@ -1,9 +1,17 @@
-﻿# V 1.0.0
+﻿# V 1.1.0
+Code Optimizations
+Added A New Logo For Library
+Added 2 New Icons For NumericUpDown Buttons : ExComponents\ExComponentsRes\
+Added A Matod To Copy A Directory : Extra\ExFun\CopyDir
+Added TextAlignment Property To NumericUpDown : ExComponents\NumericUpDown
+Changed NumericUpDown Buttons Content To Icons : ExComponents\NumericUpDown
+LoadFile Function Now Creates The ExistingFile Directory : Extras\ExFun\LoadFile
 
+# V 1.0.0
 * Seperated All Enums Into A Seperate File
 * Added A Customizebel Button : ExInputs\BasicButtons
 * Added 3 New Input Types : ExInputs\ExInputs\
-* Added 5 New Icons For Message Input Prompt : ExInputs\ExInputsRes
+* Added 5 New Icons For Message Input Prompt : ExInputs\ExInputsRes\
 * Added A Method To Load A File In Your Project To The Client PC : Extras\ExFun\LoadFile
 * Added A Method To Check Internet Connection : Extras\ExFun\ConnectionChecker
 * Added A Math Methed To Round Values To A Floating Point : Extras\ExMath\Round
