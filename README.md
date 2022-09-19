@@ -2,14 +2,14 @@
 
 [![NuGet](https://img.shields.io/nuget/v/ExtraFunctions.svg)](https://www.nuget.org/packages/ExtraFunctions/)
 
-Extra Functions Is A Mixed Libery Of Things That May Or May Not Me Usefull.
+Extra Functions Is A Mixed Libery Of Things That May Or May Not Me Useful.
 
 [Chage Log](ChangeLog.md)
 
 
 ## Installation
 ```
-Install-Package Extra-Functions
+Install-Package ExtraFunctions
 ```
 
 ## Context
