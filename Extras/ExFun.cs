@@ -1,38 +1,76 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 
 namespace ExtraFunctions.Extras
 {
     /// <summary>
-    /// Extra Functions To Fill Every Need.
+    /// Extra Functions To Fill Every Need
     /// </summary>
     public static class ExFun
     {
         /// <summary>
         /// Find And Copy Files.
         /// </summary>
-        /// <param name="Existingfile">Where The File Is Ment To Be.</param>
-        /// <param name="Replacementfile">Where The Replacement File Is.</param>
-        /// <param name="Overwrite">True: Will Rewrite The File If It Exists | False: Won't.</param>
-        /// <returns></returns>
-        public static bool LoadFile(string Existingfile, string Replacementfile, bool Overwrite = false)
+        /// <param name="ExistingFile">Where The File Is Ment To B.</param>
+        /// <param name="ReplacementFile">Where The Replacement File Is</param>
+        /// <param name="Overwrite">True: Will Rewrite The File If It Exists | False: Won't</param>
+        /// <returns>True Whether The File Exist Or Copied, False If Copy Was Unsuccessful</returns>
+        public static bool LoadFile(string ExistingFile, string ReplacementFile, bool Overwrite = false)
         {
             //var
-            bool bExist = !Overwrite, bFlag = true;
+            bool bExist = !Overwrite;
+            string[] arrDir = ExistingFile.Split("\\");
+            string Dr = string.Join("\\", arrDir[..(arrDir.Length - 1)]);
             //Code
-            if (Overwrite == false)
-                bExist = File.Exists(Existingfile);
+            if (!Directory.Exists(Dr))
+                Directory.CreateDirectory(Dr);
 
-            if (bExist == false)
+            if (!Overwrite)
+                bExist = File.Exists(ExistingFile);
+
+            if (!bExist)
                 try
                 {
-                    File.Copy(Replacementfile, Existingfile, true);
-
+                    File.Copy(ReplacementFile, ExistingFile, true);
                 }
-                catch { bFlag = false; }
+                catch { return false; }
 
-            return bFlag;
+            return true;
+        }
+
+        /// <summary>
+        /// Find And Copy Files.
+        /// </summary>
+        /// <param name="SourceDir">The Source Directory To Be Copied</param>
+        /// <param name="DestDir">Where The Directory Sould Be Pasted At</param>
+        /// <param name="CopySubDirs">Wheter To Copy All Its SubDirs And There Content</param>
+        public static void CopyDir(string SourceDir, string DestDir, bool CopySubDirs)
+        {
+            DirectoryInfo dir = new(SourceDir);
+
+            if (!dir.Exists)
+                throw new DirectoryNotFoundException(SourceDir + " : Does Not Exist");
+
+            DirectoryInfo[] dirs = dir.GetDirectories();    
+            Directory.CreateDirectory(DestDir);
+
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string tempPath = Path.Combine(DestDir, file.Name);
+                file.CopyTo(tempPath, false);
+            }
+
+            if (CopySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string tempPath = Path.Combine(DestDir, subdir.Name);
+                    CopyDir(subdir.FullName, tempPath, CopySubDirs);
+                }
+            }
         }
 
         /// <summary>
@@ -41,7 +79,7 @@ namespace ExtraFunctions.Extras
         /// </summary>
         /// <param name="Timeout">Will Return False After A Specified Time (default Is 1 Min)</param>
         /// <param name="URL">The URL To Use When Testing A Connection</param>
-        /// <returns></returns>
+        /// <returns>True If Connection Was Successful. False If Not</returns>
         public static bool ConnectionChecker(TimeSpan Timeout = default, string URL = "www.google.com")
         {
             if (Timeout == default)
