@@ -1,4 +1,7 @@
-﻿# V 1.1.0
+﻿# V 1.1.1
+Added .Net Framework 4.7.2 Support
+
+# V 1.1.0
 Code Optimizations
 Added A New Logo For Library
 Added 2 New Icons For NumericUpDown Buttons : ExComponents\ExComponentsRes\
