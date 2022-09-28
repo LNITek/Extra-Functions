@@ -13,8 +13,8 @@ namespace ExtraFunctions.Extras
     /// </summary>
     public class ExSettings
     {
-        List<FileType> SupportedTypes = new() { FileType.txt, FileType.dat };
-        Dictionary<string, string> Settings = new();
+        List<FileType> SupportedTypes = new List<FileType>() { FileType.txt, FileType.dat };
+        Dictionary<string, string> Settings = new Dictionary<string, string>();
         /// <summary>
         /// The Full Path To The Settings File
         /// </summary>
@@ -166,7 +166,7 @@ namespace ExtraFunctions.Extras
         /// </summary>
         public void Save()
         {
-            StreamWriter Writer = new(Path, false);
+            StreamWriter Writer = new StreamWriter(Path, false);
             foreach(var Item in Settings)
                 Writer.WriteLine($"{Item.Key}={Item.Value}");
             Writer.Close();
@@ -179,7 +179,7 @@ namespace ExtraFunctions.Extras
         public IEnumerable<KeyValuePair<string, string>> Load()
         {
             if (!File.Exists(Path)) Save();
-            StreamReader Reader = new(Path);
+            StreamReader Reader = new StreamReader(Path);
             while (!Reader.EndOfStream)
             {
                 var Item = Reader.ReadLine();

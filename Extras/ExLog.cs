@@ -8,7 +8,7 @@ namespace ExtraFunctions.Extras
     /// </summary>
     public class ExLog
     {
-        List<FileType> SupportedTypes = new() { FileType.log, FileType.txt, FileType.dat };
+        List<FileType> SupportedTypes = new List<FileType>() { FileType.log, FileType.txt, FileType.dat };
 
         /// <summary>
         /// The Name Of The Log File
@@ -44,7 +44,7 @@ namespace ExtraFunctions.Extras
         /// <param name="Line">The Text To Write</param>
         public void Log(string Line)
         {
-            StreamWriter sw = new(OutputPath, true);
+            StreamWriter sw = new StreamWriter(OutputPath, true);
             sw.WriteLine(Line);
             sw.Close();
         }
@@ -57,10 +57,10 @@ namespace ExtraFunctions.Extras
         /// <exception cref="FileNotFoundException"></exception>
         public static string[] ReadLog(string Path)
         {
-            List<string> lines = new();
+            List<string> lines = new List<string>();
             if (!File.Exists(Path))
                 throw new FileNotFoundException(Path + " : Does Not Exist.");
-            StreamReader Reader = new(Path);
+            StreamReader Reader = new StreamReader(Path);
             while (!Reader.EndOfStream)
                 lines.Add(Reader.ReadLine() ?? "");
             return lines.ToArray();

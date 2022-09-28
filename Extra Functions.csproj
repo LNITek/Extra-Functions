@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>net472;net6.0-windows</TargetFrameworks>
     <RootNamespace>ExtraFunctions</RootNamespace>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <SignAssembly>False</SignAssembly>
@@ -11,7 +12,7 @@
     <Authors>Tekknow</Authors>
     <Company>LNI.Tek</Company>
     <Description>A Bunch Of Extra Bells And Whistles.</Description>
-    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <AssemblyVersion>1.2.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageId>ExtraFunctions</PackageId>
@@ -28,9 +29,21 @@
     <ApplicationIcon>ExFun Logo.ico</ApplicationIcon>
     <PackageIcon>Logo.png</PackageIcon>
     <Version>$(AssemblyVersion)</Version>
+    <IsPublishable>True</IsPublishable>
+    <AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="LICENSE.txt" />
+    <None Remove="README.md" />
     <None Remove="Resources\Arrow Down.png" />
     <None Remove="Resources\Arrow Up.png" />
     <None Remove="Resources\Error Icon.png" />
@@ -46,6 +59,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </EmbeddedResource>
+    <EmbeddedResource Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Arrow Down.png" />
     <EmbeddedResource Include="Resources\Arrow Up.png" />
     <EmbeddedResource Include="Resources\Error Icon.png" />
@@ -85,17 +106,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExInputRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

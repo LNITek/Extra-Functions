@@ -11,7 +11,7 @@ namespace ExtraFunctions.ExInput
     /// </summary>
     public class BasicButton
     {
-        Button BTN = new() { Height = 20, Width = 75, Margin = new Thickness(5) };
+        Button BTN = new Button() { Height = 20, Width = 75, Margin = new Thickness(5) };
 
         /// <summary>
         /// Buttons Purpose / Function On The Promt

@@ -21,8 +21,8 @@ namespace ExtraFunctions.Extras
         {
             //var
             bool bExist = !Overwrite;
-            string[] arrDir = ExistingFile.Split("\\");
-            string Dr = string.Join("\\", arrDir[..(arrDir.Length - 1)]);
+            string[] arrDir = ExistingFile.Split('\\');
+            string Dr = string.Join("\\", arrDir.Where(x => x != arrDir.Last()));
             //Code
             if (!Directory.Exists(Dr))
                 Directory.CreateDirectory(Dr);
@@ -48,7 +48,7 @@ namespace ExtraFunctions.Extras
         /// <param name="CopySubDirs">Wheter To Copy All Its SubDirs And There Content</param>
         public static void CopyDir(string SourceDir, string DestDir, bool CopySubDirs)
         {
-            DirectoryInfo dir = new(SourceDir);
+            DirectoryInfo dir = new DirectoryInfo(SourceDir);
 
             if (!dir.Exists)
                 throw new DirectoryNotFoundException(SourceDir + " : Does Not Exist");
@@ -91,8 +91,8 @@ namespace ExtraFunctions.Extras
 #pragma warning restore SYSLIB0014 // Type or member is obsolete
                 request.KeepAlive = false;
                 request.Timeout = (int)Timeout.TotalMilliseconds;
-                using var response = (HttpWebResponse)request.GetResponse();
-                return true;
+                var response = (HttpWebResponse)request.GetResponse();
+                return response.StatusCode != HttpStatusCode.NotFound;
             }
             catch { return false; }
         }

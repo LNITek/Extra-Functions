@@ -36,7 +36,7 @@ namespace ExtraFunctions.ExInput
         /// </summary>
         public List<string> Values { get; set; }
 
-        Window Main = new()
+        Window Main = new Window()
         {
             Background = Brushes.White,
             ShowInTaskbar = false,
@@ -46,20 +46,20 @@ namespace ExtraFunctions.ExInput
             SizeToContent = SizeToContent.Height,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
         };
-        StackPanel pnlBTN = new()
+        StackPanel pnlBTN = new StackPanel()
         {
             Margin = new Thickness(5),
             Orientation = Orientation.Horizontal,
             VerticalAlignment = VerticalAlignment.Bottom,
             HorizontalAlignment = HorizontalAlignment.Right,
         };
-        TextBlock lblMessage = new()
+        TextBlock lblMessage = new TextBlock()
         {
             Margin = new Thickness(10),
             TextWrapping = TextWrapping.Wrap,
             VerticalAlignment = VerticalAlignment.Top
         };
-        Image imgIcon = new()
+        Image imgIcon = new Image()
         {
             Height = 100,
             Width = 100,
@@ -67,9 +67,9 @@ namespace ExtraFunctions.ExInput
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment= HorizontalAlignment.Center,
         };
-        TextBox edtInput = new() { Text = "", Margin = new Thickness(10, 0, 10, 0) };
-        ComboBox cmbInput = new() { Text = "", Margin = new Thickness(10, 0, 10, 0) };
-        Grid GridX = new();
+        TextBox edtInput = new TextBox() { Text = "", Margin = new Thickness(10, 0, 10, 0) };
+        ComboBox cmbInput = new ComboBox() { Text = "", Margin = new Thickness(10, 0, 10, 0) };
+        Grid GridX = new Grid();
 
         /// <summary>
         /// Create A Standard Text Input 
@@ -79,7 +79,7 @@ namespace ExtraFunctions.ExInput
         /// <param name="PromptText">The Message Within The Prompt</param>
         /// <param name="Value">Set A User Default Value In The Text Box</param>
         /// <param name="Buttons">Add Custom Buttons Or Use default Set</param>
-        public ExInput(IWin32Window Parent, string Title, string PromptText, string Value = "", BasicButton[]? Buttons = default)
+        public ExInput(IWin32Window Parent, string Title, string PromptText, string Value = "", BasicButton[] Buttons = default)
         {
             Values = new List<string>() { "" };
             lstButtons.Clear();
@@ -109,7 +109,7 @@ namespace ExtraFunctions.ExInput
         /// <param name="TextInput">True To Allow User To Enter A Value, False To Only Use Selected Values</param>
         /// <param name="Buttons">Add Custom Buttons Or Use default Set</param>
         public ExInput(IWin32Window Parent, string Title, string PromptText, string[] Values, int StartIndex = 0,
-            bool TextInput = true, BasicButton[]? Buttons = default)
+            bool TextInput = true, BasicButton[] Buttons = default)
         {
             this.Values = new List<string>() { "" };
             lstButtons.Clear();
@@ -141,7 +141,7 @@ namespace ExtraFunctions.ExInput
         /// <param name="PromptText">The Message Within The Prompt</param>
         /// <param name="Icon">The Icon To Display</param>
         /// <param name="Buttons">Add Custom Buttons Or Use default Set</param>
-        public ExInput(IWin32Window Parent, string Title, string PromptText, Icons Icon, BasicButton[]? Buttons = default)
+        public ExInput(IWin32Window Parent, string Title, string PromptText, Icons Icon, BasicButton[] Buttons = default)
         {
             Values = new List<string>() { "" };
             lstButtons.Clear();
@@ -234,7 +234,7 @@ namespace ExtraFunctions.ExInput
             }
         }
 
-        private Bitmap? LoadIcon()
+        private Bitmap LoadIcon()
         {
             switch (Icon)
             {

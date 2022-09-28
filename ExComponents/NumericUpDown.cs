@@ -139,7 +139,7 @@ namespace ExtraFunctions.Components
         /// <summary>
         /// Exicutes Property Change Event 
         /// </summary>
-        protected void OnPropertyChanged(string? name = null) =>
+        protected void OnPropertyChanged(string name = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         
         /// <summary>

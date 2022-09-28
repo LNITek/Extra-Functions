@@ -9,8 +9,8 @@ namespace ExtraFunctions.Components
     /// </summary>
     public partial class BindableToolStripMenuItem : ToolStripMenuItem, IBindableComponent
     {
-        private BindingContext? bindingContext;
-        private ControlBindingsCollection? dataBindings;
+        private BindingContext bindingContext;
+        private ControlBindingsCollection dataBindings;
 
         /// <summary>
         /// The Binding Context
@@ -20,9 +20,7 @@ namespace ExtraFunctions.Components
         {
             get
             {
-                bindingContext ??= new BindingContext();
-
-                return bindingContext;
+                return bindingContext ?? new BindingContext();
             }
             set
             {
@@ -38,9 +36,7 @@ namespace ExtraFunctions.Components
         {
             get
             {
-                dataBindings ??= new ControlBindingsCollection(this);
-
-                return dataBindings;
+                return dataBindings ?? new ControlBindingsCollection(this);
             }
         }
     }
