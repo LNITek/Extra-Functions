@@ -8,6 +8,11 @@ namespace ExtraFunctions.Extras
     /// </summary>
     public class ExICom : ICommand
     {
+        /// <summary>
+        /// Used For The CanExecuteFun Parameter To Skip Validation
+        /// </summary>
+        public static Func<object, bool> NoVal = (sender) => true;
+
         Action<object> Method;
         Func<object, bool> CanExecuteFun;
 
@@ -20,6 +25,16 @@ namespace ExtraFunctions.Extras
         {
             this.Method = Method;
             this.CanExecuteFun = CanExecuteFun;
+        }
+
+        /// <summary>
+        /// Creates instance of the command handler
+        /// </summary>
+        /// <param name="Method">Action to be executed by the command</param>
+        public ExICom(Action<object> Method)
+        {
+            this.Method = Method;
+            this.CanExecuteFun = NoVal;
         }
 
         /// <summary>
