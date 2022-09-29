@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Windows.Documents;
 
 namespace ExtraFunctions.Extras
 {
@@ -91,10 +94,34 @@ namespace ExtraFunctions.Extras
 #pragma warning restore SYSLIB0014 // Type or member is obsolete
                 request.KeepAlive = false;
                 request.Timeout = (int)Timeout.TotalMilliseconds;
-                var response = (HttpWebResponse)request.GetResponse();
-                return response.StatusCode != HttpStatusCode.NotFound;
+                using (var response = (HttpWebResponse)request.GetResponse())
+                    return true;
             }
             catch { return false; }
+        }
+
+        /// <summary>
+        /// Converts A List To ObservableCollection
+        /// </summary>
+        /// <param name="list">The List To Convert</param>
+        /// <returns>The List As A ObservableCollection</returns>
+        public static ObservableCollection<T> ListToObservableCollection<T>(List<T> list)
+        {
+            var ConList = new ObservableCollection<T>();
+            list.ForEach(x => ConList.Add(x));
+            return ConList;
+        }
+
+        /// <summary>
+        /// Converts A List To ObservableCollection
+        /// </summary>
+        /// <param name="list">The List To Convert</param>
+        /// <param name="ConList">The ObservableCollection To Convert The List To</param>
+        public static void ListToObservableCollection<T>(List<T> list, ref ObservableCollection<T> ConList)
+        {
+            ConList.Clear();
+            foreach (var Item in list)
+                ConList.Add(Item);
         }
     }
 }
