@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ExtraFunctions.Components
+namespace ExtraFunctions.ExComponents
 {
     /// <summary>
     /// A Textbox For Numbers (Integer , Decimal , Etc)

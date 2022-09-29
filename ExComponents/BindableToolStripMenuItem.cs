@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace ExtraFunctions.Components
+namespace ExtraFunctions.ExComponents
 {
     /// <summary>
     /// A Bindable Version Of A System.Windows.Forms ToolStripMenuItem
