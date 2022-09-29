@@ -85,4 +85,11 @@
         /// </summary>
         log,
     }
+
+    public enum PropertyType
+    {
+        Text,
+        Number,
+        Combo
+    }
 }
