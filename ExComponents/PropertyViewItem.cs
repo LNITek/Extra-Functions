@@ -1,25 +1,17 @@
-﻿using ExtraFunctions.Extras;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using ExtraFunctions.Extras;
 
 namespace ExtraFunctions.ExComponents
 {
     /// <summary>
+    /// WIP :
     /// A Small Object To Display Properties
     /// </summary>
     public class PropertyViewItem : Control, INotifyPropertyChanged
@@ -43,6 +35,9 @@ namespace ExtraFunctions.ExComponents
             base.OnApplyTemplate();
         }
 
+        /// <summary>
+        /// Right Side: Value Property
+        /// </summary>
         public static DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(string), typeof(PropertyViewItem),
                 new PropertyMetadata("", ValuePropertyChanged));
@@ -56,12 +51,21 @@ namespace ExtraFunctions.ExComponents
             }
         }
 
+        /// <summary>
+        /// Left Side: Titel Property
+        /// </summary>
         public static DependencyProperty TitleProperty =
             DependencyProperty.Register(nameof(Title), typeof(string), typeof(PropertyViewItem), new PropertyMetadata("Property"));
 
+        /// <summary>
+        /// Editable Property
+        /// </summary>
         public static DependencyProperty EditableProperty =
             DependencyProperty.Register(nameof(Editable), typeof(bool), typeof(PropertyViewItem), new PropertyMetadata(true));
 
+        /// <summary>
+        /// Type Property
+        /// </summary>
         public static DependencyProperty TypeProperty =
             DependencyProperty.Register(nameof(Type), typeof(PropertyType), typeof(PropertyViewItem),
                 new PropertyMetadata(PropertyType.Text, TypePropertyChanged));
@@ -77,49 +81,78 @@ namespace ExtraFunctions.ExComponents
             }
         }
 
+        /// <summary>
+        /// Title Bruch Property
+        /// </summary>
         public static DependencyProperty TitleBrushProperty =
             DependencyProperty.Register(nameof(TitleBrush), typeof(Brush), typeof(PropertyViewItem),
                 new PropertyMetadata(Brushes.SkyBlue));
 
+        /// <summary>
+        /// Items Source Property
+        /// </summary>
         public static DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable<string>), typeof(PropertyViewItem),
-                new PropertyMetadata(new string[0].AsEnumerable()));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(PropertyViewItem));
 
+        /// <summary>
+        /// The Value Typed, Selected Or Displayed
+        /// </summary>
+        [Description("Display Value"), Category("Common")]
         public string Value
         {
             get { return GetValue(ValueProperty).ToString(); }
             set { SetValue(ValueProperty, value); }
         }
+        /// <summary>
+        /// The Titel On The Right Side
+        /// </summary>
+        [Description("Display Titel"), Category("Common")]
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); OnPropertyChanged(nameof(Title)); }
         }
+        /// <summary>
+        /// Whether Its Editable Or Not
+        /// </summary>
+        [Description("Value Is Enabled"), Category("Common")]
         public bool Editable
         {
             get { return (bool)GetValue(EditableProperty); }
             set { SetValue(EditableProperty, value); OnPropertyChanged(nameof(Editable)); }
         }
+        /// <summary>
+        /// The Mode To Display Input
+        /// </summary>
+        [Description("Object Type"), Category("Common")]
         public PropertyType Type
         {
             get { return (PropertyType)GetValue(TypeProperty); }
             set { SetValue(TypeProperty, value); }
         }
 
+        /// <summary>
+        /// The Background Brush For The Titel
+        /// </summary>
+        [Description("Background Brush For The Title"), Category("Brush")]
         public Brush TitleBrush
         {
             get { return (Brush)GetValue(TitleBrushProperty); }
             set { SetValue(TitleBrushProperty, value); }
         }
 
-        public IEnumerable<string> Items
-        {
-            get { return ItemsSource; }
-        }
+        /// <summary>
+        /// The Items
+        /// </summary>
+        public IEnumerable Items { get { return ItemsSource; } }
 
-        public IEnumerable<string> ItemsSource
+        /// <summary>
+        /// The Items Source
+        /// </summary>
+        [Description("The Collection Used To Create Its Contens"), Category("Common")]
+        public IEnumerable ItemsSource
         {
-            get { return (IEnumerable<string>)GetValue(ItemsSourceProperty); }
+            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); OnPropertyChanged(nameof(ItemsSource)); OnPropertyChanged(nameof(Items)); }
         }
 

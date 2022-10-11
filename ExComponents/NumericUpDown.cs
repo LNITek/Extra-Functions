@@ -145,6 +145,7 @@ namespace ExtraFunctions.ExComponents
         /// <summary>
         /// Gets or sets the value of the Number Edit.
         /// </summary>
+        [Description("Display Value"), Category("Common")]
         public double Value
         {
             get { return (double)GetValue(ValueProperty); }
@@ -153,6 +154,7 @@ namespace ExtraFunctions.ExComponents
         /// <summary>
         /// Minimum Value
         /// </summary>
+        [Description("Minimum Value"), Category("Common")]
         public double MinValue
         {
             get { return (double)GetValue(MinValueProperty); }
@@ -161,6 +163,7 @@ namespace ExtraFunctions.ExComponents
         /// <summary>
         /// Maximum Value
         /// </summary>
+        [Description("Maximum Value"), Category("Common")]
         public double MaxValue
         {
             get { return (double)GetValue(MaxValueProperty); }
@@ -169,15 +172,17 @@ namespace ExtraFunctions.ExComponents
         /// <summary>
         /// The Amount To Increase And Decrease With
         /// </summary>    
+        [Description("Increase And Decrease The Value By"), Category("Common")]
         public double Increments
         {
             get { return (double)GetValue(IncrementsProperty); }
             set { SetValue(IncrementsProperty, value); OnPropertyChanged("Increments"); }
         }
-        
+
         /// <summary>
         /// The Alignment Of The Value
         /// </summary>
+        [Description("Alignment Of The Text"), Category("Layout")]
         public TextAlignment TextAlignment
         {
             get { return (TextAlignment)GetValue(TextAlignmentProperty); }
@@ -185,16 +190,18 @@ namespace ExtraFunctions.ExComponents
         }
 
         /// <summary>
-        /// Wether The Increase Button Is Enabled
+        /// Whether The Increase Button Is Enabled
         /// </summary>
+        [Description("Increase Button Enabled"), Category("Automation")]
         public bool UpEnabled
         {
             get { return (bool)GetValue(UpProperty); }
             set { SetValue(UpProperty, value); OnPropertyChanged(nameof(UpEnabled)); }
         }
         /// <summary>
-        /// Wether The Decrease Button Is Enabled
+        /// Whether The Decrease Button Is Enabled
         /// </summary>
+        [Description("Decrease Button Enabled"), Category("Automation")]
         public bool DownEnabled
         {
             get { return (bool)GetValue(DownProperty); }
