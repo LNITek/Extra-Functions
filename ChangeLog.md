@@ -1,25 +1,44 @@
-﻿# V1.2.0
-Fixed : When Enter Key Is Press The Value Will Be Entered | ExComponents\NumericUpDown
-Fixed : Setting NumericUpDown Bruchs Will Change The Bruchs | ExComponents\NumericUpDown
-Fixed : When NumericUpDown Value Is Above Or Below Its Max And Min Value It Will Push Back To Its Max Or Min Value | ExComponents\NumericUpDown
-Added : A NoVal Funtion To Skip Validation For CanExecuteFun Parameter | Extras\EXICom
-Added : A List To ObservableCollection Converter | Extras\ExFun\ListToObservableCollection
-Added : A PropertyViewItem WPF Component | ExComponents\PropertyViewItem
-Added : A New Enum For PropertyViewItem | | Extra\ExEnums\PropertyType
-Changed : Sepperated Component Styles From Generic Into There Own Files | Themes\
-General : Code Inprovements
+# V1.3.0
+* Info : ExInputs Object Will Not Get Any Magor Updates And Will Be Removed
+* Info : PropertyViewItem Will Be Getting An Overhall / Rework
+* Fixed : Visual Improvements | ExInputs\ExInputs\
+* Fixed : DigitBox Not Allowing Negative Values | ExComponents\DigitBox\
+* Added : Descriptions To NumericUpDown Properties | ExComponents\NumericUpDown\
+* Added : Descriptions To PropertyViewItem Properties | ExComponents\PropertyViewItem\
+* Added : XML Tips For PropertyViewItem | ExComponents\PropertyViewItem\
+* Added : ImageButton Control | ExComponents\ImageButton
+* Added : IExInput Interface For Adv Custom Inputs | ExInputs\IExInputs
+* Added : ExInputBase For Custom Inputs | ExInputs\ExInputBase
+* Added : TextPrompt, ComboPrompt, NumberPrompt, DateTimePrompt | ExInputs\
+* Added : Custom Click Events To BasicButton | ExInputs\BasicButtons\
+* Added : Accept & Cancel Click Events To BasicButton | ExInputs\BasicButtons\
+* Added : IndexOfDictionary | Extra\ExFun\IndexOfDictionary
+* Added : ToWeek, ToMonth Functions | Extra\ExFun\
+* Added : DoubleConverter, DateConverter For WPF Binding Converters | ExConverter\ExDataConverter\
+* Changed : Split ExInput Prompts Into Seperate Objects | ExInputs\
+
+# V1.2.0
+* Fixed : NumericUpDown When Enter Key Is Press The Value Will Be Entered | ExComponents\NumericUpDown
+* Fixed : Setting NumericUpDown Bruchs Will Change The Bruchs | ExComponents\NumericUpDown
+* Fixed : When NumericUpDown Value Is Above Or Below Its Max And Min Value It Will Push Back To Its Max Or Min Value | ExComponents\NumericUpDown
+* Added : A NoVal Funtion To Skip Validation For CanExecuteFun Parameter | Extras\EXICom
+* Added : A List To ObservableCollection Converter | Extras\ExFun\ListToObservableCollection
+* Added : A PropertyViewItem WPF Component | ExComponents\PropertyViewItem
+* Added : A New Enum For PropertyViewItem | Extra\ExEnums\PropertyType
+* Changed : Sepperated Component Styles From Generic Into There Own Files | Themes\
+* General : Code Inprovements
 
 # V 1.1.1
-Added .Net Framework 4.7.2 Support
+* Added .Net Framework 4.7.2 Support
 
 # V 1.1.0
-Fixed : LoadFile Function Now Creates The ExistingFile Directory : Extras\ExFun\LoadFile
-Added : A New Logo For Library
-Added : 2 New Icons For NumericUpDown Buttons | ExComponents\ExComponentsRes\
-Added : A Matod To Copy A Directory | Extra\ExFun\CopyDir
-Added : TextAlignment Property To NumericUpDown | ExComponents\NumericUpDown
-Changed : NumericUpDown Buttons Content To Icons | ExComponents\NumericUpDown
-General : Code Optimizations
+* Fixed : LoadFile Function Now Creates The ExistingFile Directory : Extras\ExFun\LoadFile
+* Added : A New Logo For Library
+* Added : 2 New Icons For NumericUpDown Buttons | ExComponents\ExComponentsRes\
+* Added : A Matod To Copy A Directory | Extra\ExFun\CopyDir
+* Added : TextAlignment Property To NumericUpDown | ExComponents\NumericUpDown
+* Changed : NumericUpDown Buttons Content To Icons | ExComponents\NumericUpDown
+* General : Code Optimizations
 
 # V 1.0.0
 * Seperated All Enums Into A Seperate File
