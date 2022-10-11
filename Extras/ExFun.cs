@@ -123,5 +123,105 @@ namespace ExtraFunctions.Extras
             foreach (var Item in list)
                 ConList.Add(Item);
         }
+
+        /// <summary>
+        /// Gets The Index Of The Dictionary By Key
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Dictionary">The Dictionary To Find Index</param>
+        /// <param name="Key">The Key To Get Index</param>
+        /// <returns>The Dictionary Index</returns>
+        public static int IndexOfDictionary<T>(Dictionary<T, object> Dictionary, T Key) =>
+            Dictionary.Keys.ToList().IndexOf(Key);
+
+        /// <summary>
+        /// Gets The Index Of The Dictionary By Value
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Dictionary">The Dictionary To Find Index</param>
+        /// <param name="Value">The Value To Get Index</param>
+        /// <returns>The Dictionary Index</returns>
+        public static int IndexOfDictionary<T>(Dictionary<object, T> Dictionary, T Value) =>
+            Dictionary.Values.ToList().IndexOf(Value);
+
+        /// <summary>
+        /// Gets The Name Of The Week
+        /// </summary>
+        /// <param name="Week">The Week</param>
+        /// <param name="Long">
+        /// True To Return The Full Name Of The Week.
+        /// False To Return Shorted Name Of The Week
+        /// </param>
+        /// <returns>The Name Of The Week</returns>
+        public static string ToWeek(DateTime Week, bool Long = false) =>
+            ToWeek((int)Week.DayOfWeek, Long);
+
+        /// <summary>
+        /// Gets The Name Of The Week
+        /// </summary>
+        /// <param name="Week">The Week</param>
+        /// <param name="Long">
+        /// True To Return The Full Name Of The Week.
+        /// False To Return Shorted Name Of The Week
+        /// </param>
+        /// <returns>The Name Of The Week</returns>
+        public static string ToWeek(int Week, bool Long = false)
+        {
+            Dictionary<string, string> DayesOfWeek = new Dictionary<string, string>()
+            {
+                {"Sun","Sunday" },
+                {"Mon","Monday" },
+                {"Tue","Tuesday" },
+                {"Wen","Wednesday" },
+                {"Thu","Thursday" },
+                {"Fry","Friday" },
+                {"Sat","Saturday" },
+            };
+            if (Week < 0 || Week >= DayesOfWeek.Count) throw new IndexOutOfRangeException(Week + " : Value Is Out Of Range");
+            return Long ? DayesOfWeek.ElementAt(Week).Value : DayesOfWeek.ElementAt(Week).Key;
+        }
+
+        /// <summary>
+        /// Gets The Name Of The Month
+        /// </summary>
+        /// <param name="Month">The Month</param>
+        /// <param name="Long">
+        /// True To Return The Full Name Of The Month.
+        /// False To Return Shorted Name Of The Month
+        /// </param>
+        /// <returns>The Name Of The Month</returns>
+        public static string ToMonth(DateTime Month, bool Long = false) =>
+            ToMonth(Month.Month, Long);
+
+        /// <summary>
+        /// Gets The Name Of The Month
+        /// </summary>
+        /// <param name="Month">The Month</param>
+        /// <param name="Long">
+        /// True To Return The Full Name Of The Month.
+        /// False To Return Shorted Name Of The Month
+        /// </param>
+        /// <returns>The Name Of The Month</returns>
+        public static string ToMonth(int Month, bool Long = false)
+        {
+            Dictionary<string, string> DatesOfMonth = new Dictionary<string, string>()
+            {
+                {"Dec ","December" },
+                {"Jan","January" },
+                {"Feb","February" },
+                {"Mar","March" },
+                {"Apr","April" },
+                {"May","May" },
+                {"Jun","June" },
+                {"Jul","July" },
+                {"Aug","August" },
+                {"Set","Setember" },
+                {"Oct","October" },
+                {"Nov","November" },
+                {"Dec","December" },
+            };
+            if (Month < 0 || Month >= DatesOfMonth.Count) throw new IndexOutOfRangeException(Month + " : Value Is Out Of Range");
+            return Long ? DatesOfMonth.ElementAt(Month).Value.Trim() : DatesOfMonth.ElementAt(Month).Key;
+        }
     }
 }
