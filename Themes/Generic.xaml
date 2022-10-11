@@ -5,5 +5,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/ExtraFunctions;component/Themes/NumericUpDownStyle.xaml"/>
         <ResourceDictionary Source="/ExtraFunctions;component/Themes/PropertyViewItemStyle.xaml"/>
+        <ResourceDictionary Source="/ExtraFunctions;component/Themes/ImageButtonStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
