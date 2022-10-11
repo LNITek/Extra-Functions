@@ -7,15 +7,14 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using System.Xml.Linq;
 using ExtraFunctions.Extras;
 using Brushes = System.Windows.Media.Brushes;
 using Image = System.Windows.Controls.Image;
-using Size = System.Windows.Size;
 
 namespace ExtraFunctions.ExInput
 {
     /// <summary>
+    /// Warning! This Is An Old API And Will Be Removed.
     /// Extra Inputs Ranging From Text To Button Inputs
     /// </summary>
     public class ExInput
@@ -24,7 +23,7 @@ namespace ExtraFunctions.ExInput
         string Message { get; set; } = "Hallo World!";
         InputMode Type { get; set; } = InputMode.Prompt;
         Icons Icon { get; set; } = Icons.None;
-        static List<BasicButton> lstButtons { get; set; } = new List<BasicButton>();
+        List<BasicButton> lstButtons { get; set; } = new List<BasicButton>();
         int ValueIndex { get; set; } = -1;
 
         /// <summary>
@@ -46,12 +45,11 @@ namespace ExtraFunctions.ExInput
             SizeToContent = SizeToContent.Height,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
         };
-        StackPanel pnlBTN = new StackPanel()
+        DockPanel pnlBTN = new DockPanel()
         {
-            Margin = new Thickness(5),
-            Orientation = Orientation.Horizontal,
+            Background = Brushes.LightGray,
+            Margin = new Thickness(0, 10, 0, 0),
             VerticalAlignment = VerticalAlignment.Bottom,
-            HorizontalAlignment = HorizontalAlignment.Right,
         };
         TextBlock lblMessage = new TextBlock()
         {
@@ -61,8 +59,8 @@ namespace ExtraFunctions.ExInput
         };
         Image imgIcon = new Image()
         {
-            Height = 100,
-            Width = 100,
+            Height = 75,
+            Width = 75,
             Margin = new Thickness(5),
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment= HorizontalAlignment.Center,
@@ -77,12 +75,12 @@ namespace ExtraFunctions.ExInput
         /// <param name="Parent">The Parent In Wich The Prompt Must Center In (Nullable)</param>
         /// <param name="Title">The Title / Heading Of The Prompt</param>
         /// <param name="PromptText">The Message Within The Prompt</param>
-        /// <param name="Value">Set A User Default Value In The Text Box</param>
+        /// <param name="Value">Set A Default Value In The Text Box</param>
         /// <param name="Buttons">Add Custom Buttons Or Use default Set</param>
         public ExInput(IWin32Window Parent, string Title, string PromptText, string Value = "", BasicButton[] Buttons = default)
         {
             Values = new List<string>() { "" };
-            lstButtons.Clear();
+
             Main.Owner = (Window)Parent;
             Main.Title = Title;
             lblMessage.Text = PromptText;
@@ -105,14 +103,13 @@ namespace ExtraFunctions.ExInput
         /// <param name="PromptText">The Message Within The Prompt</param>
         /// <param name="Values">The Values / Items Inside The Drop Down</param>
         /// <param name="StartIndex">Select A Default Value From Values \r\n
-        /// (-2 : Removes Text Input, -1 : No Defualt Value)</param>
+        /// (-1 : No Defualt Value)</param>
         /// <param name="TextInput">True To Allow User To Enter A Value, False To Only Use Selected Values</param>
         /// <param name="Buttons">Add Custom Buttons Or Use default Set</param>
         public ExInput(IWin32Window Parent, string Title, string PromptText, string[] Values, int StartIndex = 0,
             bool TextInput = true, BasicButton[] Buttons = default)
         {
             this.Values = new List<string>() { "" };
-            lstButtons.Clear();
 
             cmbInput.IsEditable = TextInput;
             Main.Owner = (Window)Parent;
@@ -144,7 +141,6 @@ namespace ExtraFunctions.ExInput
         public ExInput(IWin32Window Parent, string Title, string PromptText, Icons Icon, BasicButton[] Buttons = default)
         {
             Values = new List<string>() { "" };
-            lstButtons.Clear();
 
             Main.Owner = (Window)Parent;
             Main.Title = Title;
@@ -168,15 +164,16 @@ namespace ExtraFunctions.ExInput
         public bool Show()
         {
             pnlBTN.Children.Clear();
+            lstButtons.Reverse();
             lstButtons.ForEach(x => { pnlBTN.Children.Add(x.Button); });
-            Grid.SetColumn(pnlBTN, 1);
+            Grid.SetColumnSpan(pnlBTN, 2);
             Grid.SetRow(pnlBTN, 2);
 
             Grid.SetColumn(lblMessage, 1);
 
             GridX.Children.Clear();
             GridX.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            GridX.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1,GridUnitType.Star) });
+            GridX.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             GridX.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             GridX.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             GridX.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -226,7 +223,7 @@ namespace ExtraFunctions.ExInput
                                 BitmapSizeOptions.FromWidthAndHeight(100, 100));
                         else
                             imgIcon.Width = 0;
-                        Grid.SetRowSpan(cmbInput, 5);
+                        Grid.SetRowSpan(imgIcon, 2);
                         return imgIcon;
                     }
                 default:
