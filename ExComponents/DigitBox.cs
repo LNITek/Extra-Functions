@@ -44,17 +44,15 @@ namespace ExtraFunctions.ExComponents
             return true;
         }
 
-        private bool IsOtherKey(Key inKey)
-        {
-            return inKey == Key.Delete || inKey == Key.Back || inKey == Key.Decimal;
-        }
+        private bool IsOtherKey(Key inKey) =>
+            inKey == Key.Delete || inKey == Key.Back || inKey == Key.Decimal || inKey == Key.OemMinus || inKey == Key.Subtract;
 
         private string LeaveOnlyNumbers(string inString)
         {
             string tmp = inString;
             foreach (char c in inString.ToCharArray())
             {
-                if (!Regex.IsMatch(c.ToString(), "^[0-9.]*$"))
+                if (!Regex.IsMatch(c.ToString(), @"^[0-9.-]*$"))
                 {
                     tmp = tmp.Replace(c.ToString(), "");
                 }
