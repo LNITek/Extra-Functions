@@ -86,10 +86,22 @@
         log,
     }
 
+    /// <summary>
+    /// Property View Item Type
+    /// </summary>
     public enum PropertyType
     {
+        /// <summary>
+        /// Just Plain Text
+        /// </summary>
         Text,
+        /// <summary>
+        /// Standerd Number + Decimal Point
+        /// </summary>
         Number,
+        /// <summary>
+        /// Multable Items (Not Editable)
+        /// </summary>
         Combo
     }
 }
