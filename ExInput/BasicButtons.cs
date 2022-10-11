@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using ExtraFunctions.Extras;
@@ -11,7 +12,8 @@ namespace ExtraFunctions.ExInput
     /// </summary>
     public class BasicButton
     {
-        Button BTN = new Button() { Height = 20, Width = 75, Margin = new Thickness(5) };
+        readonly Button BTN = new Button() 
+        { HorizontalAlignment = HorizontalAlignment.Right, Height = 20, Width = 75, Margin = new Thickness(5) };
 
         /// <summary>
         /// Buttons Purpose / Function On The Promt
@@ -21,23 +23,19 @@ namespace ExtraFunctions.ExInput
         /// <summary>
         /// Returns The Button Component
         /// </summary>
-        public Button Button
-        {
-            get
-            {
-                return BTN;
-            }
-        }
+        public Button Button { get { return BTN; } }
 
         /// <summary>
         /// A Complite Custom Button
         /// </summary>
         /// <param name="Text">Button Text</param>
-        /// <param name="Result">Buttons Purpose</param>
-        public BasicButton(string Text, ButtonResult Result)
+        /// <param name="ButtonResult">Buttons Purpose</param>
+        /// <param name="ClickEvent">On Click Event</param>
+        public BasicButton(string Text, ButtonResult ButtonResult, RoutedEventHandler ClickEvent = null)
         {
             BTN.Content = Text;
-            BTNResult = Result;
+            BTNResult = ButtonResult;
+            if (ClickEvent != null) BTN.Click += ClickEvent;
             Format();
         }
 
@@ -45,7 +43,8 @@ namespace ExtraFunctions.ExInput
         /// A Set Of Preset Custom Buttons
         /// </summary>
         /// <param name="ButtonResult">The Buttons Purpose Into A Complite Custom Buttton</param>
-        public BasicButton(ButtonResult ButtonResult)
+        /// <param name="ClickEvent">On Click Event</param>
+        public BasicButton(ButtonResult ButtonResult, RoutedEventHandler ClickEvent = null)
         {
             string Text;
 
@@ -60,24 +59,59 @@ namespace ExtraFunctions.ExInput
 
             BTN.Content = Text;
             BTNResult = ButtonResult;
+            if (ClickEvent != null) BTN.Click += ClickEvent;
             Format();
         }
 
         private void Format()
         {
+            DockPanel.SetDock(BTN, Dock.Right);
             switch (BTNResult)
             {
                 case ButtonResult.Accept:
                 case ButtonResult.Retry: BTN.IsDefault = true; BTN.Click += AcceptClick; break;
-                case ButtonResult.Cancel: BTN.IsCancel = true; break;
+                case ButtonResult.Cancel when !BTN.IsDefault: BTN.IsCancel = true; break;
             }
         }
 
-        private void AcceptClick(object sender, EventArgs e)
+        /// <summary>
+        /// RoutedEventHandler For Accept Button.
+        /// ButtonResult.Accept And ButtonResult.Retry Will Exicute This Method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
+        public void AcceptClick(object sender, EventArgs e)
         {
-            var w = (Window)((Grid)((StackPanel)((Button)sender).Parent).Parent).Parent;
-            w.DialogResult = true;
-            w.Close();
+            FrameworkElement Main = (FrameworkElement)sender;
+            while (!(Main is Window))
+            {
+                if (Main == null) throw new Exception("The Parent Of The Button Is Not A Window");
+                Main = (FrameworkElement)Main.Parent;
+            }
+            var Win = Main as Window;
+            Win.DialogResult = true;
+            Win.Close();
+        }
+
+        /// <summary>
+        /// RoutedEventHandler For Cancel Button.
+        /// ButtonResult.CancelS Will Exicute This Method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
+        public void CancelClick(object sender, EventArgs e)
+        {
+            FrameworkElement Main = (FrameworkElement)sender;
+            while (!(Main is Window))
+            {
+                if (Main == null) throw new Exception("The Parent Of The Button Is Not A Window");
+                Main = (FrameworkElement)Main.Parent;
+            }
+            var Win = Main as Window;
+            Win.DialogResult = false;
+            Win.Close();
         }
     }
 }
