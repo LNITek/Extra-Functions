@@ -223,5 +223,17 @@ namespace ExtraFunctions.Extras
             if (Month < 0 || Month >= DatesOfMonth.Count) throw new IndexOutOfRangeException(Month + " : Value Is Out Of Range");
             return Long ? DatesOfMonth.ElementAt(Month).Value.Trim() : DatesOfMonth.ElementAt(Month).Key;
         }
+
+        /// <summary>
+        /// Clears The Current Line In The Console. 
+        /// Used In A Console App.
+        /// </summary>
+        public static void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
+        }
     }
 }
