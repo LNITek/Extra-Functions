@@ -104,4 +104,19 @@
         /// </summary>
         Combo
     }
+
+    /// <summary>
+    /// Selection Type For Radio Group Box
+    /// </summary>
+    public enum SelectionType
+    {
+        /// <summary>
+        /// Only One Item
+        /// </summary>
+        One,
+        /// <summary>
+        /// More Than One Item
+        /// </summary>
+        Many,
+    }
 }
