@@ -3,7 +3,7 @@
 * Info : ScrollBarStyles & LisBoxStyles Is WIP
 * Added : ClearCurrentConsoleLine | Extras\ExFun
 * Added : Roud Function For Double | Extras\ExMath\Round
-* Added : New Enum For Component Groupboxes | Extras\ExEnums\SelectionType
+* Added : New Enum For Groupbox Components | Extras\ExEnums\SelectionType
 * Added : CheckBoxGroup. A Missing Component In WPF Framework | ExComponents\CheckBoxGroup
 * Added : RadioGroupBox. A Missing Component In WPF Framework | ExComponents\RadioGroupBox
 * Added : 3 New Styles For DataGrid Component | ExStyles\
