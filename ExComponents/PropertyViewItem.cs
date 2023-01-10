@@ -144,12 +144,13 @@ namespace ExtraFunctions.ExComponents
         /// <summary>
         /// The Items
         /// </summary>
+        [Description("Gets an object representing the collection of the items contained in the items control"), Category("Common")]
         public IEnumerable Items { get { return ItemsSource; } }
 
         /// <summary>
         /// The Items Source
         /// </summary>
-        [Description("The Collection Used To Create Its Contens"), Category("Common")]
+        [Description("Gets or sets a collection that is used to generate the content of the control"), Category("Common")]
         public IEnumerable ItemsSource
         {
             get { return (IEnumerable)GetValue(ItemsSourceProperty); }

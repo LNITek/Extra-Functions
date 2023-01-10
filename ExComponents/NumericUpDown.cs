@@ -111,17 +111,17 @@ namespace ExtraFunctions.ExComponents
             DependencyProperty.Register(nameof(DownEnabled), typeof(bool), typeof(NumericUpDown), new PropertyMetadata(false));
 
         /// <summary>
-        /// Event For When The Value Changes
-        /// </summary>
-        public static RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(nameof(ValueChanged), RoutingStrategy.Bubble,
-            typeof(EventHandler), typeof(NumericUpDown));
-
-        /// <summary>
         /// The Alignment Of The Value
         /// </summary>
         public static DependencyProperty TextAlignmentProperty =
             DependencyProperty.Register(nameof(TextAlignment), typeof(TextAlignment), typeof(NumericUpDown),
                 new PropertyMetadata(TextAlignment.Left));
+
+        /// <summary>
+        /// Event For When The Value Changes
+        /// </summary>
+        public static RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(nameof(ValueChanged), 
+            RoutingStrategy.Bubble, typeof(EventHandler), typeof(NumericUpDown));
 
         /// <summary>
         /// Event When The Value Changes
@@ -182,7 +182,7 @@ namespace ExtraFunctions.ExComponents
         /// <summary>
         /// The Alignment Of The Value
         /// </summary>
-        [Description("Alignment Of The Text"), Category("Layout")]
+        [Description("Alignment Of The Text"), Category("Text")]
         public TextAlignment TextAlignment
         {
             get { return (TextAlignment)GetValue(TextAlignmentProperty); }
