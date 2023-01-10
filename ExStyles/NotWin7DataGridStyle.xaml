@@ -45,11 +45,11 @@
                                             </Grid.ColumnDefinitions>
                                             <ContentPresenter Grid.Column="0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                                             <Path x:Name="SortArrow" Grid.Column="1"
-                                            HorizontalAlignment="Center" VerticalAlignment="Center"                                           
-                                            Width="8" Height="6" Margin="0,0,5,0"
-                                            Stretch="Fill" Opacity="0.5" Fill="Black"
-                                            RenderTransformOrigin="0.5,0.4"
-                                            Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" />
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  Width="8" Height="6" Margin="0,0,5,0"
+                                                  Stretch="Fill" Opacity="0.5" Fill="{TemplateBinding Foreground}"
+                                                  RenderTransformOrigin="0.5,0.5" Visibility="Collapsed" 
+                                                  Data="M 0 115 95 115 65 90 85 90 120 120 85 150 65 150 95 125 0 125 Z"/>
                                         </Grid>
                                     </Themes:DataGridHeaderBorder>
                                     <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ColumnHeaderGripperStyle}"/>
@@ -60,12 +60,17 @@
                                         <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
                                         <Setter TargetName="SortArrow" Property="RenderTransform">
                                             <Setter.Value>
-                                                <RotateTransform Angle="180" />
+                                                <RotateTransform Angle="270" />
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
                                     <Trigger Property="SortDirection" Value="Descending">
                                         <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="SortArrow" Property="RenderTransform">
+                                            <Setter.Value>
+                                                <RotateTransform Angle="90" />
+                                            </Setter.Value>
+                                        </Setter>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>

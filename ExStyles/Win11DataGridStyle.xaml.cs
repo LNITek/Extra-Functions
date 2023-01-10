@@ -26,8 +26,8 @@ namespace ExtraFunctions.ExStyles
             }
             SelectedRow = GridDisplay.Items.IndexOf(GridDisplay.SelectedCells[0].Item);
             var Row = (DataGridRow)GridDisplay.ItemContainerGenerator.ContainerFromIndex(SelectedRow);
-            Row.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#b8cfde");
-            Row.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#7c98ab");
+            Row.Background = Brushes.LightGray;
+            Row.BorderBrush = Brushes.Gray;
         }
     }
 }
