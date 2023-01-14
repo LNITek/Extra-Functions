@@ -36,7 +36,7 @@ namespace ExtraFunctions.ExInput
             Background = Brushes.White,
             ShowInTaskbar = false,
             Width = 400,
-            MinHeight = 150,
+            MinHeight = 100,
             ResizeMode = ResizeMode.NoResize,
             SizeToContent = SizeToContent.Height,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
@@ -87,8 +87,8 @@ namespace ExtraFunctions.ExInput
             GridX.Children.Clear();
             GridX.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             GridX.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            GridX.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            GridX.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            GridX.RowDefinitions.Add(new RowDefinition());
+            GridX.RowDefinitions.Add(new RowDefinition());
             GridX.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             GridX.Children.Add(ExComponent);
             GridX.Children.Add(lblMessage);

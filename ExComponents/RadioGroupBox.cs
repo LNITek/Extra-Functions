@@ -17,6 +17,9 @@ using System.Windows.Shapes;
 
 namespace ExtraFunctions.ExComponents
 {
+    /// <summary>
+    /// Group Box With Radio Buttons
+    /// </summary>
     public class RadioGroupBox : Control
     {
         private bool EnableSelectionEvent = true;
