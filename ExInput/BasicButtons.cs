@@ -12,7 +12,32 @@ namespace ExtraFunctions.ExInput
     /// </summary>
     public class BasicButton
     {
-        readonly Button BTN = new Button() 
+        #region Presets
+        /// <summary>
+        /// Deafault Accept Button
+        /// </summary>
+        public static BasicButton AcceptButton = new BasicButton(ButtonResult.Accept);
+        /// <summary>
+        /// Deafault Cancel Button
+        /// </summary>
+        public static BasicButton CancelButton = new BasicButton(ButtonResult.Cancel);
+        /// <summary>
+        /// OK Button (Accept Result)
+        /// </summary>
+        public static BasicButton OKButton = new BasicButton("OK", ButtonResult.Accept);
+        /// <summary>
+        /// Yes, No Button Collection
+        /// </summary>
+        public static BasicButton[] YesNOButtons = new BasicButton[]
+        { new BasicButton("Yes",ButtonResult.Accept), new BasicButton("No",ButtonResult.Cancel) };
+        /// <summary>
+        /// Deafault Button Colection
+        /// </summary>
+        public static BasicButton[] DefaultButtons = new BasicButton[]
+        { new BasicButton(ButtonResult.Accept), new BasicButton(ButtonResult.Cancel) };
+        #endregion
+
+        readonly Button BTN = new Button()
         { HorizontalAlignment = HorizontalAlignment.Right, Height = 20, Width = 75, Margin = new Thickness(5) };
 
         /// <summary>
@@ -51,8 +76,8 @@ namespace ExtraFunctions.ExInput
             switch (ButtonResult)
             {
                 case ButtonResult.None: Text = "None"; break;
-                case ButtonResult.Cancel: Text = "Cancel";  break;
-                case ButtonResult.Accept: Text = "Ok";  break;
+                case ButtonResult.Cancel: Text = "Cancel"; break;
+                case ButtonResult.Accept: Text = "Ok"; break;
                 case ButtonResult.Retry: Text = "Retry"; break;
                 default: Text = "Button"; break;
             }
