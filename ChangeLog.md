@@ -1,3 +1,9 @@
+# V1.4.1
+* Added : BasicButton Presets |
+* Fixed : DataGrid Styles Interfering With Eachother |
+* Fixed : Input Prompt Sizing |
+* Change : Updated MessagePromp Icons |
+
 # V1.4.0
 * Info : PropertyViewItem Is Still A WIP
 * Info : ScrollBarStyles & LisBoxStyles Is WIP
