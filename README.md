@@ -4,7 +4,7 @@
 
 Extra Functions Is A Mixed Libery Of Things That May Or May Not Me Useful.
 
-[Chage Log](ChangeLog.md)
+[Change Log](ChangeLog.md)
 
 ## Installation
 ```
