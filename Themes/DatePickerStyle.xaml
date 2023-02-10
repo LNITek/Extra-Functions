@@ -1,0 +1,97 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:ex="clr-namespace:ExtraFunctions.ExConverter"
+                    xmlns:local="clr-namespace:ExtraFunctions.ExComponents">
+
+    <ex:DateToStringConverter x:Key="DateConverter"/>
+
+    <Style TargetType="{x:Type local:DatePicker}">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:DatePicker}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                            OpacityMask="{TemplateBinding OpacityMask}" Background="{TemplateBinding Background}" 
+                            IsEnabled="{TemplateBinding IsEnabled}">
+                        <Grid Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition MaxWidth="20"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="PART_Date" IsReadOnly="{TemplateBinding IsReadOnly}"
+                                                Background="Transparent" BorderThickness="0"/>
+
+                            <local:ImageButton x:Name="PART_Selector" Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" 
+                                               IsTabStop="False" BorderThickness="1,0,0,0"/>
+                            <Popup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=PART_Date}" 
+                                   HorizontalOffset="125" VerticalOffset="1" PopupAnimation="Slide">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="LightGray" BorderThickness="1">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="PART_Sub" Padding="10,2" Grid.Column="0">
+                                                <Path Fill="Black" Stretch="Uniform" Height="9" Width="6"
+                                                  Data="M48 16 48 48Q48 56 36 48L18 36Q12 32 18 28L36 16Q48 8 48 16Z"/>
+                                            </Border>
+                                            <TextBlock x:Name="PART_DateDisplay" Grid.Column="1" TextAlignment="Center">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Foreground" Value="#60a0dc"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <Border x:Name="PART_Add" Padding="10,2" Grid.Column="2">
+                                                <Path Fill="Black" Stretch="Uniform" Height="9" Width="6"
+                                                  Data="M8 16 8 48Q8 56 20 48L38 36Q44 32 38 28L20 16Q8 8 8 16Z"/>
+                                            </Border>
+                                        </Grid>
+
+                                        <Grid x:Name="PART_Grid" Grid.Row="1" Width="200"/>
+
+                                        <StackPanel  Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Border BorderBrush="#60a0dc" BorderThickness="1" Margin="5" Width="30" Height="15"/>
+                                            <TextBlock Text="{Binding Source={x:Static sys:DateTime.Today},Converter={StaticResource DateConverter}, StringFormat=Today: {0:}}"
+                                                       x:Name="PART_TodayDate">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Foreground" Value="#60a0dc"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
