@@ -14,23 +14,28 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NotWin7DataGridStyle" TargetType="{x:Type DataGrid}">
+    <Style x:Key="ExcelDataGridStyle" TargetType="{x:Type DataGrid}">
         <Setter Property="Background" Value="White"/>
-        <Setter Property="BorderBrush" Value="LightGray"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="2.5"/>
+        <Setter Property="GridLinesVisibility" Value="All"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="LightGray"/>
+        <Setter Property="VerticalGridLinesBrush" Value="LightGray"/>
+        <Setter Property="SelectionUnit" Value="Cell"/>
         <Setter Property="ColumnHeaderStyle" >
             <Setter.Value>
                 <Style TargetType="DataGridColumnHeader">
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#bbebfe"/>
+                            <Setter Property="Background" Value="#217346"/>
                         </Trigger>
                     </Style.Triggers>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="Gray"/>
                     <Setter Property="BorderBrush" Value="LightGray"/>
-                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,0"/>
                     <Setter Property="Height" Value="20"/>
                     <Setter Property="Template">
                         <Setter.Value>
@@ -44,34 +49,34 @@
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <ContentPresenter Grid.Column="0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            <ContentPresenter Grid.Column="0" 
+                                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                             <Path x:Name="SortArrow" Grid.Column="1"
-                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                  Width="8" Height="6" Margin="0,0,5,0"
-                                                  Stretch="Fill" Opacity="0.5" Fill="{TemplateBinding Foreground}"
-                                                  RenderTransformOrigin="0.5,0.5" Visibility="Collapsed" 
-                                                  Data="M 0 115 95 115 65 90 85 90 120 120 85 150 65 150 95 125 0 125 Z"/>
+                                            HorizontalAlignment="Center" VerticalAlignment="Center"                                           
+                                            Width="8" Height="6" Margin="0,0,5,0" Stroke="{TemplateBinding Foreground}"
+                                            Stretch="Fill" Opacity="1" Fill="#217346"
+                                            RenderTransformOrigin="0.5,0.4"
+                                            Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" />
                                         </Grid>
                                     </Border>
-                                    <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ColumnHeaderGripperStyle}"/>
-                                    <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource ColumnHeaderGripperStyle}"/>
+                                    <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" 
+                                           Style="{StaticResource ColumnHeaderGripperStyle}"/>
+                                    <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" 
+                                           Style="{StaticResource ColumnHeaderGripperStyle}"/>
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="SortDirection" Value="Ascending">
                                         <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
                                         <Setter TargetName="SortArrow" Property="RenderTransform">
                                             <Setter.Value>
-                                                <RotateTransform Angle="270" />
+                                                <RotateTransform Angle="180" />
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
                                     <Trigger Property="SortDirection" Value="Descending">
                                         <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
-                                        <Setter TargetName="SortArrow" Property="RenderTransform">
-                                            <Setter.Value>
-                                                <RotateTransform Angle="90" />
-                                            </Setter.Value>
-                                        </Setter>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -83,12 +88,13 @@
         <Setter Property="CellStyle">
             <Setter.Value>
                 <Style TargetType="DataGridCell">
-                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="1"/>
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="LightGray"/>
-                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderBrush" Value="#217346"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -97,7 +103,8 @@
         <Setter Property="RowHeaderStyle">
             <Setter.Value>
                 <Style TargetType="DataGridRowHeader">
-                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Background" Value="Gray"/>
+                    <Setter Property="Width" Value="0"/>
                 </Style>
             </Setter.Value>
         </Setter>
@@ -105,8 +112,13 @@
             <Setter.Value>
                 <Style TargetType="DataGridRow">
                     <Setter Property="Background" Value="White"/>
-                    <Setter Property="BorderBrush" Value="Black"/>
-                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="LightGray"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#ebebe9"/>
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </Setter.Value>
         </Setter>

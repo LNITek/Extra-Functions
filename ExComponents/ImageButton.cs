@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ExtraFunctions.ExComponents
 {
@@ -27,13 +16,17 @@ namespace ExtraFunctions.ExComponents
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ImageButton), new FrameworkPropertyMetadata(typeof(ImageButton)));
         }
 
+        Image imgIcon;
+
         /// <summary>
         /// Init The Component
         /// </summary>
         public override void OnApplyTemplate()
         {
             PreviewMouseLeftButtonUp += (s, e) => RaiseEvent(new RoutedEventArgs(ClickEvent, this));
+            KeyDown += EnterKeyClick;
 
+            imgIcon = (Image)Template.FindName("PART_Icon", this);
             var pnlDock = (Border)Template.FindName("pnlBack", this);
             pnlDock.MouseEnter += (sender, e) =>
             {
@@ -47,7 +40,36 @@ namespace ExtraFunctions.ExComponents
                 pnlDock.BorderBrush = Brushes.Transparent;
             };
 
+            switch (ImageAlignment)
+            {
+                case Extras.ImageAlignment.Center:
+                    Grid.SetColumn(imgIcon, 1);
+                    Grid.SetRow(imgIcon, 1);
+                    break;
+                case Extras.ImageAlignment.Top:
+                    Grid.SetColumn(imgIcon, 1);
+                    Grid.SetRow(imgIcon, 0);
+                    break;
+                case Extras.ImageAlignment.Bottom:
+                    Grid.SetColumn(imgIcon, 1);
+                    Grid.SetRow(imgIcon, 2);
+                    break;
+                case Extras.ImageAlignment.Left:
+                    Grid.SetColumn(imgIcon, 0);
+                    Grid.SetRow(imgIcon, 1);
+                    break;
+                case Extras.ImageAlignment.Right:
+                    Grid.SetColumn(imgIcon, 2);
+                    Grid.SetRow(imgIcon, 1);
+                    break;
+            }
+
             base.OnApplyTemplate();
+            void EnterKeyClick(object sender, KeyEventArgs e)
+            {
+                if (e.Key != Key.Return) return;
+                RaiseEvent(new RoutedEventArgs(ClickEvent, this));
+            }
         }
 
         /// <summary>
@@ -77,9 +99,41 @@ namespace ExtraFunctions.ExComponents
         /// <summary>
         /// Get Or Set The Image Alighment
         /// </summary>
-        public static DependencyProperty IconAlignmentProperty =
-            DependencyProperty.Register(nameof(IconAlignment), typeof(Dock), typeof(ImageButton),
-                new PropertyMetadata(Dock.Left));
+        public static DependencyProperty ImageAlignmentProperty =
+            DependencyProperty.Register(nameof(ImageAlignment), typeof(Extras.ImageAlignment), typeof(ImageButton),
+                new PropertyMetadata(Extras.ImageAlignment.Left, ImageAlignmentPropertyChanged));
+
+        private static void ImageAlignmentPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ImageButton btnImage && btnImage.imgIcon != null)
+            {
+                switch (btnImage.ImageAlignment)
+                {
+                    case Extras.ImageAlignment.Center:
+                        Grid.SetColumn(btnImage.imgIcon, 1);
+                        Grid.SetRow(btnImage.imgIcon, 1);
+                        break;
+                    case Extras.ImageAlignment.Top:
+                        Grid.SetColumn(btnImage.imgIcon, 1);
+                        Grid.SetRow(btnImage.imgIcon, 0);
+                        break;
+                    case Extras.ImageAlignment.Bottom:
+                        Grid.SetColumn(btnImage.imgIcon, 1);
+                        Grid.SetRow(btnImage.imgIcon, 2);
+                        break;
+                    case Extras.ImageAlignment.Left:
+                        Grid.SetColumn(btnImage.imgIcon, 0);
+                        Grid.SetRow(btnImage.imgIcon, 1);
+                        break;
+                    case Extras.ImageAlignment.Right:
+                        Grid.SetColumn(btnImage.imgIcon, 2);
+                        Grid.SetRow(btnImage.imgIcon, 1);
+                        break;
+                }
+                btnImage.OnPropertyChanged(nameof(ImageAlignment));
+            }
+        }
+
         /// <summary>
         /// Get Or Set The General Alignment
         /// </summary>
@@ -97,12 +151,12 @@ namespace ExtraFunctions.ExComponents
         /// On Click Event
         /// </summary>
         public static RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(nameof(Click), RoutingStrategy.Bubble,
-            typeof(EventHandler), typeof(ImageButton));
+            typeof(RoutedEventHandler), typeof(ImageButton));
 
         /// <summary>
         /// On Click Event
         /// </summary>
-        public event EventHandler Click
+        public event RoutedEventHandler Click
         {
             add { AddHandler(ClickEvent, value); }
             remove { RemoveHandler(ClickEvent, value); }
@@ -159,11 +213,11 @@ namespace ExtraFunctions.ExComponents
         /// <summary>
         /// Get Or Set The Image Alighment
         /// </summary>
-        [Description("Alignment Of The Icon"), Category("Layout")]
-        public Dock IconAlignment
+        [Description("Alignment Of The Image"), Category("Layout")]
+        public Extras.ImageAlignment ImageAlignment
         {
-            get { return (Dock)GetValue(IconAlignmentProperty); }
-            set { SetValue(IconAlignmentProperty, value); OnPropertyChanged(nameof(IconAlignment)); }
+            get { return (Extras.ImageAlignment)GetValue(ImageAlignmentProperty); }
+            set { SetValue(ImageAlignmentProperty, value); }
         }
         /// <summary>
         /// Get Or Set The General Alignment

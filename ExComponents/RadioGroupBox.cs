@@ -3,17 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ExtraFunctions.ExComponents
 {
@@ -53,6 +45,8 @@ namespace ExtraFunctions.ExComponents
                     }
                     var cbx = new RadioButton() { Content = Item.ToString() };
                     cbx.Checked += Select;
+                    cbx.Unchecked += UnSelect;
+                    cbx.KeyDown += EnterKeyClick;
                     Children.Add(cbx);
                     Grid.SetColumn(cbx, Column);
                     Grid.SetRow(cbx, Row);
@@ -77,6 +71,17 @@ namespace ExtraFunctions.ExComponents
                 RaiseEvent(new RoutedEventArgs(SelectionChangedEvent, this));
                 OnPropertyChanged(nameof(SelectedItems));
                 OnPropertyChanged(nameof(SelectedIndex));
+            }
+            void UnSelect(object sender, RoutedEventArgs e)
+            {
+                OnPropertyChanged(nameof(SelectedItems));
+                OnPropertyChanged(nameof(SelectedIndex));
+            }
+            void EnterKeyClick(object sender, KeyEventArgs e)
+            {
+                if (e.Key != Key.Return) return;
+                if (sender is RadioButton cbx)
+                    cbx.IsChecked = !cbx.IsChecked;
             }
         }
 
@@ -103,12 +108,12 @@ namespace ExtraFunctions.ExComponents
         /// Event For When The Selected Items Changes
         /// </summary>
         public static RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged),
-            RoutingStrategy.Bubble, typeof(EventHandler), typeof(RadioGroupBox));
+            RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(RadioGroupBox));
 
         /// <summary>
         /// Event When The Selected Items Changes
         /// </summary>
-        public event EventHandler SelectionChanged
+        public event RoutedEventHandler SelectionChanged
         {
             add { AddHandler(SelectionChangedEvent, value); }
             remove { RemoveHandler(SelectionChangedEvent, value); }

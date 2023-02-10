@@ -10,24 +10,22 @@ using System.Reflection;
 
 namespace ExtraFunctions.ExStyles
 {
+    /// <summary>
+    /// </summary>
     public partial class Win10DataGridStyle
     {
         void CelSelect(object sender, RoutedEventArgs e)
         {
-            var Cell = sender as DataGridCell;
-            var GridDisplay = Cell.GetType().GetProperty("DataGridOwner", BindingFlags.NonPublic | BindingFlags.Instance).
-                GetValue(Cell) as DataGrid;
+            var GridDisplay = ((DataGridCell)sender).GetType().GetProperty("DataGridOwner", 
+                BindingFlags.NonPublic | BindingFlags.Instance).GetValue(sender) as DataGrid;
             var SelectedRow = -1;
-            try { int.TryParse(GridDisplay.Tag.ToString(), out SelectedRow); } catch { }
-            if (SelectedRow >= 0)
+            if (!string.IsNullOrWhiteSpace((GridDisplay.Tag ?? "").ToString()))
+                _ = int.TryParse(GridDisplay.Tag.ToString(), out SelectedRow);
+            if (SelectedRow >= 0 && SelectedRow < GridDisplay.Items.Count)
             {
-                try
-                {
-                    var PreRow = (DataGridRow)GridDisplay.ItemContainerGenerator.ContainerFromIndex(SelectedRow);
-                    PreRow.ClearValue(Control.BackgroundProperty);
-                    PreRow.ClearValue(Control.BorderBrushProperty);
-                }
-                catch { }
+                var PreRow = (DataGridRow)GridDisplay.ItemContainerGenerator.ContainerFromIndex(SelectedRow);
+                PreRow.ClearValue(Control.BackgroundProperty);
+                PreRow.ClearValue(Control.BorderBrushProperty);
             }
             SelectedRow = GridDisplay.Items.IndexOf(GridDisplay.SelectedCells[0].Item);
             var Row = (DataGridRow)GridDisplay.ItemContainerGenerator.ContainerFromIndex(SelectedRow);

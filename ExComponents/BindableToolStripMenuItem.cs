@@ -10,7 +10,7 @@ namespace ExtraFunctions.ExComponents
     public partial class BindableToolStripMenuItem : ToolStripMenuItem, IBindableComponent
     {
         private BindingContext bindingContext;
-        private ControlBindingsCollection dataBindings;
+        private ControlBindingsCollection dataBindings = null;
 
         /// <summary>
         /// The Binding Context
