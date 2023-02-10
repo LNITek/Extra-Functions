@@ -40,9 +40,9 @@ namespace ExtraFunctions.ExComponents
             btnUp.SetBinding(IsEnabledProperty, new Binding(nameof(UpEnabled)) { Source = this });
             btnDown.SetBinding(IsEnabledProperty, new Binding(nameof(DownEnabled)) { Source = this });
 
-            imgUp.Source = Imaging.CreateBitmapSourceFromHBitmap( ExComponents.ExComponentsRes.Arrow_Up.GetHbitmap(), 
+            imgUp.Source = Imaging.CreateBitmapSourceFromHBitmap(ExComponentsRes.Arrow_Up.GetHbitmap(), 
                 IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(100, 100));
-            imgDown.Source = Imaging.CreateBitmapSourceFromHBitmap(ExComponents.ExComponentsRes.Arrow_Down.GetHbitmap(),
+            imgDown.Source = Imaging.CreateBitmapSourceFromHBitmap(ExComponentsRes.Arrow_Down.GetHbitmap(),
                 IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(100, 100));
 
             btnUp.Click += UpClick;
@@ -71,7 +71,7 @@ namespace ExtraFunctions.ExComponents
             if (d is NumericUpDown NumEdit)
             {
                 NumEdit.RaiseEvent(new RoutedEventArgs(ValueChangedEvent, NumEdit));
-                NumEdit.OnPropertyChanged("Value");
+                NumEdit.OnPropertyChanged(nameof(Value));
                 NumEdit.UpEnabled = (double)e.NewValue < NumEdit.MaxValue;
                 NumEdit.DownEnabled = (double)e.NewValue > NumEdit.MinValue;
                 if ((double)e.NewValue > NumEdit.MaxValue) NumEdit.Value = NumEdit.MaxValue;
@@ -118,15 +118,21 @@ namespace ExtraFunctions.ExComponents
                 new PropertyMetadata(TextAlignment.Left));
 
         /// <summary>
+        /// is Read Only
+        /// </summary>
+        public static DependencyProperty IsReadOnlyProperty =
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(NumericUpDown), new PropertyMetadata(false));
+
+        /// <summary>
         /// Event For When The Value Changes
         /// </summary>
         public static RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(nameof(ValueChanged), 
-            RoutingStrategy.Bubble, typeof(EventHandler), typeof(NumericUpDown));
+            RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(NumericUpDown));
 
         /// <summary>
         /// Event When The Value Changes
         /// </summary>
-        public event EventHandler ValueChanged
+        public event RoutedEventHandler ValueChanged
         {
             add { AddHandler(ValueChangedEvent, value); }
             remove { RemoveHandler(ValueChangedEvent, value); }
@@ -190,6 +196,16 @@ namespace ExtraFunctions.ExComponents
         }
 
         /// <summary>
+        /// Is Read Only
+        /// </summary>
+        [Description("Gets or sets a value that indicates whether the user can edit the value property."), Category("Miscellaneous")]
+        public bool IsReadOnly
+        {
+            get { return (bool)GetValue(IsReadOnlyProperty); }
+            set { SetValue(IsReadOnlyProperty, value); OnPropertyChanged(nameof(IsReadOnly)); }
+        }
+
+        /// <summary>
         /// Whether The Increase Button Is Enabled
         /// </summary>
         [Description("Increase Button Enabled"), Category("Automation")]
@@ -222,11 +238,11 @@ namespace ExtraFunctions.ExComponents
         /// <summary>
         /// Increase The Value By The Increment
         /// </summary>
-        public void Increase() => Value += Increments;
+        public void Increase() => Value += !IsReadOnly ? Increments : 0;
         /// <summary>
         /// Decrease The Value By The Increment
         /// </summary>
-        public void Decrease() => Value -= Increments;
+        public void Decrease() => Value -= !IsReadOnly ? Increments : 0;
 
         private void UpClick(object sender, EventArgs e) => Increase();
         private void DownClick(object sender, EventArgs e) => Decrease();
