@@ -1,16 +1,6 @@
 ﻿namespace ExtraFunctions.Extras
 {
     /// <summary>
-    /// Popup Type
-    /// </summary>
-    internal enum InputMode
-    {
-        Text,
-        Combo,
-        Prompt,
-    }
-
-    /// <summary>
     /// Icons For The Popup Prompt
     /// </summary>
     public enum Icons
@@ -39,6 +29,10 @@
         /// Error Icon
         /// </summary>
         Error,
+        /// <summary>
+        /// Critical Icon
+        /// </summary>
+        Critical,
     }
 
     /// <summary>
@@ -87,25 +81,6 @@
     }
 
     /// <summary>
-    /// Property View Item Type
-    /// </summary>
-    public enum PropertyType
-    {
-        /// <summary>
-        /// Just Plain Text
-        /// </summary>
-        Text,
-        /// <summary>
-        /// Standerd Number + Decimal Point
-        /// </summary>
-        Number,
-        /// <summary>
-        /// Multable Items (Not Editable)
-        /// </summary>
-        Combo
-    }
-
-    /// <summary>
     /// Selection Type For Radio Group Box
     /// </summary>
     public enum SelectionType
@@ -119,4 +94,32 @@
         /// </summary>
         Many,
     }
+
+    /// <summary>
+    /// The Alignment Of The Image In A ImageButtton
+    /// </summary>
+    public enum ImageAlignment
+    {
+        /// <summary>
+        /// Alignment Of Top Center
+        /// </summary>
+        Top,
+        /// <summary>
+        /// Alignment Of Bottom Center
+        /// </summary>
+        Bottom,
+        /// <summary>
+        /// Alignment Of Left Center
+        /// </summary>
+        Left,
+        /// <summary>
+        /// Alignment Of Right Center
+        /// </summary>
+        Right,
+        /// <summary>
+        /// Alignment Of Dead Center
+        /// </summary>
+        Center,
+    }
+
 }
