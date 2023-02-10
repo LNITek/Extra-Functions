@@ -7,21 +7,28 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <Style TargetType="ListBoxItem">
+                <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Background" Value="White"/>
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <!--<Setter Property="Background" Value="#b8cfde"/>
-                            <Setter Property="BorderBrush" Value="#7c98ab"/>-->
-                            <Setter Property="Background" Value="Green"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseDirectlyOver" Value="True">
-                            <!--<Setter Property="Background" Value="#ebebe9"/>-->
-                            <Setter Property="Background" Value="Red"/>
-                        </Trigger>
-                    </Style.Triggers>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border Name="Border" Padding="1" SnapsToDevicePixels="true" Margin="0" 
+                                        Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1">
+                                    <ContentPresenter/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter TargetName="Border" Property="Background" Value="#b8cfde"/>
+                                        <Setter TargetName="Border" Property="BorderBrush" Value="#7c98ab"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#ebebe9"/>
+                                        <Setter TargetName="Border" Property="BorderBrush" Value="Transparent"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </Setter.Value>
         </Setter>
