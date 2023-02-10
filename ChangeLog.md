@@ -10,7 +10,7 @@
 * Added : New And Improved `DatePicker` Component.
 * Added : `TimePicker` Component.
 * Added : Auto Select All On Focus For `DigitBox`.
-* Added : Arrow Keys Up And Down Now Increases And Decreases `DigitBox` Value.
+* Added : Arrow Keys Up And Down Now Increase And Decrease `DigitBox` Value.
 * Added : IsReadOnly Property To `NumericUpDown`.
 * Added : `ChomboBox Styles` For Windows 10 + 11.
 * Added : `ListBox And ListView Styles` For Windows 10 + 11.
@@ -28,7 +28,7 @@
 * Changed : Renamed DateConverter To `DateToStringConverter`.
 * Changed : Renamed `ImageButton` IconAlignment Property To `ImageAlignment`.
 * Changed : `ImageAlignment` Property Now Uses Custom Enum + Visual Improvements.
-* Changed : `ImageButton` Now Uses RoutedEventArgs Insted Of EventArgs For The Click Event.
+* Changed : `ImageButton` Now Uses RoutedEventArgs Instead Of EventArgs For The Click Event.
 * Changed : `ExInputs` Button Panel Background Colour To A Lighter Gray.
 * Changed : `ErrorIcon` To Resemble A Error Icon More Accurately.
 ###
@@ -38,7 +38,7 @@
 ###
 * Added \* : Overhauled The `PropertyView` Component Set.
 ###
-* General : Code Inprovements.
+* General : Code improvements.
 
 # V1.4.1
 * Added : BasicButton Presets |
