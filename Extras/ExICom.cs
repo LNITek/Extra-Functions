@@ -4,23 +4,6 @@ using System.Windows.Input;
 namespace ExtraFunctions.Extras
 {
     /// <summary>
-    /// Some Routed Commands. 
-    /// Note - These Command Don't Do Anything On There Own. 
-    /// Thay Are Use In `CommandBinding` Like : Save, SaveAs, Open, New Ect.
-    /// </summary>
-    public static class ExCom
-    {
-        /// <summary>
-        /// Exit Command
-        /// </summary>
-        public static RoutedCommand Exit { get; set; } = new RoutedCommand();
-        /// <summary>
-        /// Refrech Command
-        /// </summary>
-        public static RoutedCommand Refresh { get; set; } = new RoutedCommand();
-    }
-
-    /// <summary>
     /// Create A Costom Command
     /// </summary>
     public class ExICom : ICommand

@@ -11,10 +11,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Tekknow</Authors>
     <Company>LNI.Tek</Company>
-    <Description>Extra Functions Is As You Guessed It, Full Of Extra Thing To Help Improve Or Simplify Your Coding Experience.
-Extra Functions Is A Fairly Large Library But Has A Lot Packed Into It. Ranging From Input Prompts To Custom Components And Styles.</Description>
-    <AssemblyVersion>$(PackageVersion)</AssemblyVersion>
-    <FileVersion>$(PackageVersion)</FileVersion>
+    <Description>A Bunch Of Extra Bells And Whistles.</Description>
+    <AssemblyVersion>1.4.1</AssemblyVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageId>ExtraFunctions</PackageId>
     <Title>Extra Functions</Title>
@@ -24,15 +23,14 @@ Extra Functions Is A Fairly Large Library But Has A Lot Packed Into It. Ranging 
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageTags>Popup, NumericUpDown, Extra, Styles, Components, Inputs</PackageTags>
-    <PackageReleaseNotes>Check The Change Log!
-https://github.com/Tekknow1580/Extra-Functions/blob/main/ChangeLog.md</PackageReleaseNotes>
+    <PackageTags>Popup, NumericUpDown, Extra</PackageTags>
+    <PackageReleaseNotes>Check The Change Log!</PackageReleaseNotes>
     <OutputType>Library</OutputType>
     <ApplicationIcon>ExFun Logo.ico</ApplicationIcon>
     <PackageIcon>Logo.png</PackageIcon>
-    <Version>1.5.0</Version>
+    <Version>$(AssemblyVersion)</Version>
     <IsPublishable>True</IsPublishable>
-    <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
@@ -49,20 +47,11 @@ https://github.com/Tekknow1580/Extra-Functions/blob/main/ChangeLog.md</PackageRe
     <None Remove="README.md" />
     <None Remove="Resources\Arrow Down.png" />
     <None Remove="Resources\Arrow Up.png" />
-    <None Remove="Resources\Calendar.png" />
-    <None Remove="Resources\Cancel.png" />
-    <None Remove="Resources\Categorized.png" />
-    <None Remove="Resources\Critical Icon.png" />
     <None Remove="Resources\Error Icon.png" />
-    <None Remove="Resources\Filter.png" />
-    <None Remove="Resources\FilterClear.png" />
     <None Remove="Resources\Info Icon.png" />
     <None Remove="Resources\None Icon.png" />
     <None Remove="Resources\Notifi Icon.png" />
     <None Remove="Resources\Question Icon.png" />
-    <None Remove="Resources\Search.png" />
-    <None Remove="Resources\SortAsc.png" />
-    <None Remove="Resources\SortDesc.png" />
     <None Remove="Resources\Warning Icon.png" />
   </ItemGroup>
 
@@ -78,20 +67,11 @@ https://github.com/Tekknow1580/Extra-Functions/blob/main/ChangeLog.md</PackageRe
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Arrow Down.png" />
     <EmbeddedResource Include="Resources\Arrow Up.png" />
-    <EmbeddedResource Include="Resources\Calendar.png" />
-    <EmbeddedResource Include="Resources\Cancel.png" />
-    <EmbeddedResource Include="Resources\Categorized.png" />
-    <EmbeddedResource Include="Resources\Critical Icon.png" />
     <EmbeddedResource Include="Resources\Error Icon.png" />
-    <EmbeddedResource Include="Resources\Filter.png" />
-    <EmbeddedResource Include="Resources\FilterClear.png" />
     <EmbeddedResource Include="Resources\Info Icon.png" />
     <EmbeddedResource Include="Resources\None Icon.png" />
     <EmbeddedResource Include="Resources\Notifi Icon.png" />
     <EmbeddedResource Include="Resources\Question Icon.png" />
-    <EmbeddedResource Include="Resources\Search.png" />
-    <EmbeddedResource Include="Resources\SortAsc.png" />
-    <EmbeddedResource Include="Resources\SortDesc.png" />
     <EmbeddedResource Include="Resources\Warning Icon.png" />
   </ItemGroup>
 
@@ -100,6 +80,10 @@ https://github.com/Tekknow1580/Extra-Functions/blob/main/ChangeLog.md</PackageRe
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationFramework.Aero" />
   </ItemGroup>
 
   <ItemGroup>

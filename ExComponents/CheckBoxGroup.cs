@@ -1,11 +1,21 @@
 ﻿using ExtraFunctions.Extras;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace ExtraFunctions.ExComponents
 {
@@ -45,8 +55,6 @@ namespace ExtraFunctions.ExComponents
                     }
                     var cbx = new CheckBox() { Content = Item.ToString() };
                     cbx.Checked += Select;
-                    cbx.Unchecked += UnSelect;
-                    cbx.KeyDown += EnterKeyClick;
                     Children.Add(cbx);
                     Grid.SetColumn(cbx, Column);
                     Grid.SetRow(cbx, Row);
@@ -71,17 +79,6 @@ namespace ExtraFunctions.ExComponents
                 RaiseEvent(new RoutedEventArgs(SelectionChangedEvent, this));
                 OnPropertyChanged(nameof(SelectedItems));
                 OnPropertyChanged(nameof(SelectedIndex));
-            }
-            void UnSelect(object sender, RoutedEventArgs e)
-            {
-                OnPropertyChanged(nameof(SelectedItems));
-                OnPropertyChanged(nameof(SelectedIndex));
-            }
-            void EnterKeyClick(object sender, KeyEventArgs e)
-            {
-                if (e.Key != Key.Return) return;
-                if (sender is CheckBox cbx)
-                    cbx.IsChecked = !cbx.IsChecked;
             }
         }
 
@@ -108,12 +105,12 @@ namespace ExtraFunctions.ExComponents
         /// Event For When The Selected Items Changes
         /// </summary>
         public static RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), 
-            RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CheckBoxGroup));
+            RoutingStrategy.Bubble, typeof(EventHandler), typeof(CheckBoxGroup));
 
         /// <summary>
         /// Event When The Selected Items Changes
         /// </summary>
-        public event RoutedEventHandler SelectionChanged
+        public event EventHandler SelectionChanged
         {
             add { AddHandler(SelectionChangedEvent, value); }
             remove { RemoveHandler(SelectionChangedEvent, value); }

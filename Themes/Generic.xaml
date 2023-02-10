@@ -1,22 +1,13 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ExtraFunctions.ExComponents">
+    
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/ExtraFunctions;component/Themes/NumericUpDownStyle.xaml"/>
-        <ResourceDictionary Source="/ExtraFunctions;component/Themes/ImageButtonStyle.xaml"/>
-        <ResourceDictionary Source="/ExtraFunctions;component/Themes/TimePickerStyle.xaml"/>
-        <ResourceDictionary Source="/ExtraFunctions;component/Themes/DatePickerStyle.xaml"/>
-
-        <ResourceDictionary Source="/ExtraFunctions;component/Themes/PropertyViewStyle.xaml"/>
         <ResourceDictionary Source="/ExtraFunctions;component/Themes/PropertyViewItemStyle.xaml"/>
-        <ResourceDictionary Source="/ExtraFunctions;component/Themes/CheckBoxTreeViewItemStyle.xaml"/>
+        <ResourceDictionary Source="/ExtraFunctions;component/Themes/ImageButtonStyle.xaml"/>
         <ResourceDictionary Source="/ExtraFunctions;component/Themes/CheckBoxGroupStyle.xaml"/>
         <ResourceDictionary Source="/ExtraFunctions;component/Themes/RadioGroupBoxStyle.xaml"/>
-        
-        <ResourceDictionary Source="/ExtraFunctions;component/Themes/FilterButtonStyle.xaml"/>
-        <ResourceDictionary Source="/ExtraFunctions;component/Themes/FindBoxStyle.xaml"/>
-        <ResourceDictionary Source="/ExtraFunctions;component/Themes/SearchBoxStyle.xaml"/>
-
-        <ResourceDictionary Source="/ExtraFunctions;component/Themes/ResizeGripStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

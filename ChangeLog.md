@@ -1,50 +1,8 @@
-# V1.5.0
-* Added : `Critical` Icon For `MessagePrompt`.
-* Added : `BoolToValueConverter` To Convert A Boolean To Any Value.
-* Added : `FillerButton` For All Your Filter Needs.
-* Added : Fully Functional ResizeGrip - `ResizeGrip`.
-* Added : CheckBox Style TreeViewItem - `CheckBoxTreeViewItem`.
-* Added : Search Text Box - `SearchBox`.
-* Added : Popup Search Component - `FindBox`.
-* Added : Some Routed Commands - `ExCom.Exit`, `ExCom.Refrech`.
-* Added : New And Improved `DatePicker` Component.
-* Added : `TimePicker` Component.
-* Added : Auto Select All On Focus For `DigitBox`.
-* Added : Arrow Keys Up And Down Now Increases And Decreases `DigitBox` Value.
-* Added : IsReadOnly Property To `NumericUpDown`.
-* Added : `ChomboBox Styles` For Windows 10 + 11.
-* Added : `ListBox And ListView Styles` For Windows 10 + 11.
-* Added : Windows 11 `ScrolBar Style`.
-* Added : `Excel Styled Datagrid`.
-* Added : ImageAlignment Enum For Alignment Of The Image In The `ImageButton` Component. Now With Center Alignment!
-###
-* Fixed : Windows 11 `ScollBar Style` To Windows 11 `DataGrid Style`.
-* Fixed : Try Catch Blocks In `DataGrid Styles` No Longer Breaks On Fail.
-* Fixed : Tab Will No Longer Stop On `NumericUpDown` & `CheckBoxGroup` $ `RadioGroupBox` Components And Will Pass Through To Its Content.
-* Fixed : `ImageButton` & `CheckBoxGroup` & `RadioGroupBox` Will Accept Enter Key As A Mouse Click.
-* Fixed : `DateToStringConverter` Now Has A Higher Chance Of Successfully Converting String Back To DateTime And Will Return `null` On Fail.
-###
-* Changed : Renamed DoubleConverter To `DoubleToStringConverter`.
-* Changed : Renamed DateConverter To `DateToStringConverter`.
-* Changed : Renamed `ImageButton` IconAlignment Property To `ImageAlignment`.
-* Changed : `ImageAlignment` Property Now Uses Custom Enum + Visual Improvements.
-* Changed : `ImageButton` Now Uses RoutedEventArgs Insted Of EventArgs For The Click Event.
-* Changed : `ExInputs` Button Panel Background Colour To A Lighter Gray.
-* Changed : `ErrorIcon` To Resemble A Error Icon More Accurately.
-###
-* Removed : Tab Stop For `NumericUpDown` Increase And Decrease Buttons.
-* Removed : The Old `ExInputs` Object.
-* Removed : PresentationFramework.Aero Assembly.
-###
-* Added \* : Overhauled The `PropertyView` Component Set.
-###
-* General : Code Inprovements.
-
 # V1.4.1
 * Added : BasicButton Presets |
 * Fixed : DataGrid Styles Interfering With Eachother |
 * Fixed : Input Prompt Sizing |
-* Changed : Updated MessagePromp Icons |
+* Change : Updated MessagePromp Icons |
 
 # V1.4.0
 * Info : PropertyViewItem Is Still A WIP
@@ -55,7 +13,7 @@
 * Added : CheckBoxGroup. A Missing Component In WPF Framework | ExComponents\CheckBoxGroup
 * Added : RadioGroupBox. A Missing Component In WPF Framework | ExComponents\RadioGroupBox
 * Added : 3 New Styles For DataGrid Component | ExStyles\
-* Changed : NumericUpDown Code Improvements | ExComponents\NumericUpDown\
+* Change : NumericUpDown Code Improvements | ExComponents\NumericUpDown\
 
 # V1.3.0
 * Info : ExInputs Object Will Not Get Any Magor Updates And Will Be Removed

@@ -1,23 +1,18 @@
 ﻿<ResourceDictionary  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:local="clr-namespace:ExtraFunctions.ExComponents"
-                     xmlns:convert="clr-namespace:ExtraFunctions.ExConverter">
-
-    <!--<convert:InverseBooleanConverter x:Key="InverseBooleanConverter"/>-->
-
+                     xmlns:local="clr-namespace:ExtraFunctions.ExComponents">
+    
     <Style TargetType="{x:Type local:NumericUpDown}">
         <Setter Property="Background" Value="White"/>
         <Setter Property="BorderBrush" Value="Gray"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="MinWidth" Value="20"/>
         <Setter Property="Height" Value="20"/>
-        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:NumericUpDown}">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
-                            OpacityMask="{TemplateBinding OpacityMask}" Background="{TemplateBinding Background}" 
-                            IsEnabled="{TemplateBinding IsEnabled}">
+                            OpacityMask="{TemplateBinding OpacityMask}" Background="{TemplateBinding Background}">
                         <Grid Background="Transparent">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -27,15 +22,15 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
+
                             <local:DigitBox x:Name="PART_Value" Grid.RowSpan="2" Text="0" Background="Transparent"
                                             BorderThickness="0" Foreground="{TemplateBinding Foreground}"
                                             VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                                            TextAlignment="{TemplateBinding TextAlignment}" 
-                                            IsReadOnly="{TemplateBinding IsReadOnly}"/>
-                            <Button x:Name="PART_Up" Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" IsTabStop="False">
+                                            TextAlignment="{TemplateBinding TextAlignment}"/>
+                            <Button x:Name="PART_Up" Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch">
                                 <Image x:Name="PART_UpIcon" MaxWidth="10" Stretch="Fill"/>
                             </Button>
-                            <Button x:Name="PART_Down" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" IsTabStop="False">
+                            <Button x:Name="PART_Down" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch">
                                 <Image x:Name="PART_DownIcon" MaxWidth="10" Stretch="Fill"/>
                             </Button>
                         </Grid>
