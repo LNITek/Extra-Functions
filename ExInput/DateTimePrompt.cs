@@ -22,10 +22,10 @@ namespace ExtraFunctions.ExInput
         /// <param name="PromptText">The Message Within The Prompt</param>
         /// <param name="Value">Set A Default Value For The Date Picker</param>
         /// <param name="Buttons">Add Custom Buttons Or Use default Set</param>
-        public DateTimePrompt(IWin32Window Parent, string Title, string PromptText, DateTime Value = default, 
+        public DateTimePrompt(Window Parent, string Title, string PromptText, DateTime Value = default, 
             BasicButton[] Buttons = default)
         {
-            Main.Owner = (Window)Parent;
+            Main.Owner = Parent;
             this.Title = Title;
             this.Message = PromptText;
             if (Value == default) Value = DateTime.Now;

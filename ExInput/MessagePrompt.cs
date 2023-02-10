@@ -30,10 +30,10 @@ namespace ExtraFunctions.ExInput
         /// <param name="PromptText">The Message Within The Prompt</param>
         /// <param name="Icon">The Icon To Display</param>
         /// <param name="Buttons">Add Custom Buttons Or Use default Set</param>
-        public MessagePrompt(IWin32Window Parent, string Title, string PromptText, Icons Icon = Icons.None, 
+        public MessagePrompt(Window Parent, string Title, string PromptText, Icons Icon = Icons.None, 
             BasicButton[] Buttons = default)
         {
-            Main.Owner = (Window)Parent;
+            Main.Owner = Parent;
             this.Title = Title;
             Message = PromptText;
             Value = "";

@@ -24,10 +24,10 @@ namespace ExtraFunctions.ExInput
         /// (-1 : No Defualt Value)</param>
         /// <param name="TextInput">True To Allow User To Enter A Value, False To Only Use Selected Values</param>
         /// <param name="Buttons">Add Custom Buttons Or Use default Set</param>
-        public ComboPrompt(IWin32Window Parent, string Title, string PromptText, string[] Values, int StartIndex = 0,
+        public ComboPrompt(Window Parent, string Title, string PromptText, string[] Values, int StartIndex = 0,
             bool TextInput = true, BasicButton[] Buttons = default)
         {
-            Main.Owner = (Window)Parent;
+            Main.Owner = Parent;
             this.Title = Title;
             Message = PromptText;
             if (StartIndex >= Values.Length) StartIndex = Values.Length - 1;

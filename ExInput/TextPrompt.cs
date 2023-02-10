@@ -21,9 +21,9 @@ namespace ExtraFunctions.ExInput
         /// <param name="PromptText">The Message Within The Prompt</param>
         /// <param name="Value">Set A Default Value In The Text Box</param>
         /// <param name="Buttons">Add Custom Buttons Or Use default Set</param>
-        public TextPrompt(IWin32Window Parent, string Title, string PromptText, string Value = "", BasicButton[] Buttons = default)
+        public TextPrompt(Window Parent, string Title, string PromptText, string Value = "", BasicButton[] Buttons = default)
         {
-            Main.Owner = (Window)Parent;
+            Main.Owner = Parent;
             this.Title = Title;
             this.Message = PromptText;
             this.Value = Value;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Brushes = System.Windows.Media.Brushes;
 
 namespace ExtraFunctions.ExInput
@@ -46,7 +47,7 @@ namespace ExtraFunctions.ExInput
         /// </summary>
         public DockPanel pnlBTN { get; set; } = new DockPanel()
         {
-            Background = Brushes.LightGray,
+            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f0f0f0")),
             Margin = new Thickness(0, 10, 0, 0),
             VerticalAlignment = VerticalAlignment.Bottom,
         };

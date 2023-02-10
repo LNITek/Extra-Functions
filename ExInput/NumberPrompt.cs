@@ -24,10 +24,10 @@ namespace ExtraFunctions.ExInput
         /// <param name="MinValue">Set A Min Value</param>
         /// <param name="MaxValue">Set A Max Value </param>
         /// <param name="Buttons">Add Custom Buttons Or Use default Set</param>
-        public NumberPrompt(IWin32Window Parent, string Title, string PromptText, double Value = 0, 
+        public NumberPrompt(Window Parent, string Title, string PromptText, double Value = 0, 
             double MinValue = 0, double MaxValue = 100, BasicButton[] Buttons = default)
         {
-            Main.Owner = (Window)Parent;
+            Main.Owner = Parent;
             this.Title = Title;
             this.Message = PromptText;
             this.Value = Value.ToString();
