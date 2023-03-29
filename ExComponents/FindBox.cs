@@ -43,8 +43,6 @@ namespace ExtraFunctions.ExComponents
             btnExit.Source = Imaging.CreateBitmapSourceFromHBitmap(ExComponentsRes.Cancel.GetHbitmap(),
                 IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(100, 100));
 
-            Popup.PlacementTarget = (UIElement)Parent;
-
             edtFind.KeyDown += (sender, e) => { if (e.Key == Key.Enter) Accept(); };
             btnSearch.Click += Accept;
             btnExit.Click += Exit;
