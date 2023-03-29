@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/ExtraFunctions;component/Themes/NumericUpDownStyle.xaml"/>
         <ResourceDictionary Source="/ExtraFunctions;component/Themes/ImageButtonStyle.xaml"/>
+        <ResourceDictionary Source="/ExtraFunctions;component/Themes/SwitchStyle.xaml"/>
         <ResourceDictionary Source="/ExtraFunctions;component/Themes/TimePickerStyle.xaml"/>
         <ResourceDictionary Source="/ExtraFunctions;component/Themes/DatePickerStyle.xaml"/>
 
