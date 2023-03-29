@@ -98,6 +98,7 @@ namespace ExtraFunctions.ExInput
                 case Icons.Question: return ExInputRes.Question_Icon;
                 case Icons.Warning: return ExInputRes.Warning_Icon;
                 case Icons.Error: return ExInputRes.Error_Icon;
+                case Icons.Critical: return ExInputRes.Critical_Icon;
                 case Icons.None: return null;
                 default: return ExInputRes.None_Icon;
             }
