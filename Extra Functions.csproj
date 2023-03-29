@@ -30,7 +30,7 @@ https://github.com/Tekknow1580/Extra-Functions/blob/main/ChangeLog.md</PackageRe
     <OutputType>Library</OutputType>
     <ApplicationIcon>ExFun Logo.ico</ApplicationIcon>
     <PackageIcon>Logo.png</PackageIcon>
-    <Version>1.5.0</Version>
+    <Version>1.5.1</Version>
     <IsPublishable>True</IsPublishable>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
   </PropertyGroup>
