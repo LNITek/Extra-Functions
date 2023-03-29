@@ -29,9 +29,9 @@
                                                 Background="Transparent" BorderThickness="0"/>
 
                             <local:ImageButton x:Name="PART_Selector" Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" 
-                                               IsTabStop="False" BorderThickness="1,0,0,0"/>
-                            <Popup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=PART_Date}" 
-                                   HorizontalOffset="125" VerticalOffset="1" PopupAnimation="Slide">
+                                               IsTabStop="False" BorderThickness="1,0,0,0" ImageAlignment="Center"/>
+                            <Popup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=PART_Selector}" 
+                                    VerticalOffset="1" PopupAnimation="Slide">
                                 <Border Background="{TemplateBinding Background}" BorderBrush="LightGray" BorderThickness="1">
                                     <Grid>
                                         <Grid.RowDefinitions>

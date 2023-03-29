@@ -12,14 +12,17 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using static ExtraFunctions.ExComponents.Day;
 using static ExtraFunctions.ExComponents.Week;
+using static ExtraFunctions.ExComponents.Month;
+using static ExtraFunctions.ExComponents.Year;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace ExtraFunctions.ExComponents
 {
     /// <summary>
     /// New And Better Date Picker
     /// </summary>
-    [System.Drawing.ToolboxBitmap(typeof(DatePicker),"DatePicker.bmp")]
     public class DatePicker : Control, INotifyPropertyChanged
     {
         static DatePicker()
@@ -42,7 +45,10 @@ namespace ExtraFunctions.ExComponents
         }
 
         DisplayMode Mode = DisplayMode.Week;
-        List<Week> DayGrid { get; set; } = new List<Week>();
+        List<Day> DayGrid { get; set; } = new List<Day>();
+        Week WeekGrid = new Week();
+        Month MonthGrid = new Month();
+        Year YearGrid = new Year();
 
         /// <summary>
         /// Init The Component
@@ -64,12 +70,12 @@ namespace ExtraFunctions.ExComponents
 
             Popup.StaysOpen = false;
 
-            ExComponents.Month.SelectCell = SelectMonth;
-            ExComponents.Year.SelectCell = SelectYear;
+            MonthGrid.SelectCell = SelectMonth;
+            YearGrid.SelectCell = SelectYear;
 
-            GridDisplay.Children.Add(Week.WeekGrid);
-            GridDisplay.Children.Add(ExComponents.Month.MonthGrid);
-            GridDisplay.Children.Add(ExComponents.Year.YearGrid);
+            GridDisplay.Children.Add(WeekGrid.WeekGrid);
+            GridDisplay.Children.Add(MonthGrid.MonthGrid);
+            GridDisplay.Children.Add(YearGrid.YearGrid);
 
             edtDate.SetBinding(TextBox.TextProperty, new Binding(nameof(Value))
             {
@@ -117,9 +123,9 @@ namespace ExtraFunctions.ExComponents
             edtDate.AddHandler(PreviewMouseLeftButtonDownEvent,
               new MouseButtonEventHandler(SelectivelyIgnoreMouseButton), true);
             edtDate.AddHandler(GotKeyboardFocusEvent,
-              new RoutedEventHandler(SelectAllText), true);
+              new RoutedEventHandler(SelectAllContent), true);
             edtDate.AddHandler(MouseDoubleClickEvent,
-              new RoutedEventHandler(SelectAllText), true);
+              new RoutedEventHandler(SelectAllContent), true);
 
             base.OnApplyTemplate();
         }
@@ -216,25 +222,25 @@ namespace ExtraFunctions.ExComponents
 
         void Update()
         {
-            DayGrid.ForEach(x => x.Select(Value.Day, Week.Tag.This));
-            ExComponents.Month.Select(Value.Month);
-            ExComponents.Year.Select(Value.Year);
+            DayGrid.ForEach(x => x.Select(Value.Day, ExComponents.Day.Tag.This));
+            MonthGrid.Select(Value.Month);
+            YearGrid.Select(Value.Year);
 
-            ExComponents.Year.Min = int.Parse(Value.Year.ToString().Substring(0, Value.Year.ToString().Length - 1) + "0");
+            YearGrid.Min = int.Parse(Value.Year.ToString().Substring(0, Value.Year.ToString().Length - 1) + "0");
 
             lblDisplay.Text = Mode == DisplayMode.Week ? ExFun.ToMonth(Value, true) + " " + Value.Year :
                                 Mode == DisplayMode.Month ? Value.Year.ToString() :
-                                ExComponents.Year.Min + "-" + (ExComponents.Year.Min + 9);
+                                YearGrid.Min + "-" + (YearGrid.Min + 9);
 
-            WeekGrid.IsEnabled = Mode == DisplayMode.Week;
-            ExComponents.Month.MonthGrid.IsEnabled = Mode == DisplayMode.Month;
-            ExComponents.Year.YearGrid.IsEnabled = Mode == DisplayMode.Year;
+            WeekGrid.WeekGrid.IsEnabled = Mode == DisplayMode.Week;
+            MonthGrid.MonthGrid.IsEnabled = Mode == DisplayMode.Month;
+            YearGrid.YearGrid.IsEnabled = Mode == DisplayMode.Year;
         }
 
         void SetDayGrid()
         {
-            if (Week.WeekGrid != null && DayGrid.Count > 0)
-                DayGrid.ForEach(x => x.ToList().ForEach(X => Week.WeekGrid.Children.Remove(X)));
+            if (WeekGrid.WeekGrid != null && DayGrid.Count > 0)
+                DayGrid.ForEach(x => x.ToList().ForEach(X => WeekGrid.WeekGrid.Children.Remove(X)));
             DayGrid.Clear();
             var M = new DateTime(Value.Year, Value.Month, 1);
             if (M.DayOfWeek == DayOfWeek.Sunday) M = M.AddDays(-7);
@@ -242,34 +248,34 @@ namespace ExtraFunctions.ExComponents
 
             for (int J = 1; J < 7; J++)
             {
-                var W = new Week() { SelectCell = SelectDay };
+                var W = new Day() { SelectCell = SelectDay };
                 for (int I = 0; I < 7; I++)
                 {
-                    var T = M == DateTime.Today ? Week.Tag.Today : M.Month == Value.Month ? Week.Tag.This :
+                    var T = M == DateTime.Today ? ExComponents.Day.Tag.Today : M.Month == Value.Month ? ExComponents.Day.Tag.This :
                         (M.Month > Value.Month && !(M.Month == 12 && Value.Month == 1)) || (Value.Month == 12 && M.Month == 1) ?
-                        Week.Tag.Next : Week.Tag.Pre;
+                        ExComponents.Day.Tag.Next : ExComponents.Day.Tag.Pre;
                     W.Add(M.Day, M.DayOfWeek, J, T);
                     M = M.AddDays(1);
                 }
                 DayGrid.Add(W);
             }
 
-            if (Week.WeekGrid != null)
-                DayGrid.ForEach(x => x.ToList().ForEach(X => Week.WeekGrid.Children.Add(X)));
+            if (WeekGrid.WeekGrid != null)
+                DayGrid.ForEach(x => x.ToList().ForEach(X => WeekGrid.WeekGrid.Children.Add(X)));
 
             OnPropertyChanged(nameof(DayGrid));
         }
 
         private void SelectDay(object sender, MouseButtonEventArgs e)
         {
-            var lblCell = (TextBlock)sender;
-            var I = int.Parse(lblCell.Text);
-            var Tag = (Week.Tag)(lblCell.Tag ?? Week.Tag.This);
+            var lblCell = (Label)sender;
+            var I = int.Parse(lblCell.Content as string);
+            var Tag = (Day.Tag)(lblCell.Tag ?? ExComponents.Day.Tag.This);
             var Ofset = 0;
             switch (Tag)
             {
-                case Week.Tag.Pre: Ofset = -1; break;
-                case Week.Tag.Next: Ofset = 1; break;
+                case ExComponents.Day.Tag.Pre: Ofset = -1; break;
+                case ExComponents.Day.Tag.Next: Ofset = 1; break;
             }
 
             if (Value.Month + Ofset <= 0)
@@ -285,8 +291,8 @@ namespace ExtraFunctions.ExComponents
 
         private void SelectMonth(object sender, MouseButtonEventArgs e)
         {
-            var lblCell = (TextBlock)sender;
-            var I = ExComponents.Month.Find(lblCell.Text);
+            var lblCell = (Label)sender;
+            var I = MonthGrid.Find(lblCell.Content as string);
             if(I < 0) return;
 
             Value = new DateTime(Value.Year, I, 1);
@@ -297,8 +303,8 @@ namespace ExtraFunctions.ExComponents
 
         private void SelectYear(object sender, MouseButtonEventArgs e)
         {
-            var lblCell = (TextBlock)sender;
-            var I = ExComponents.Year.Find(lblCell.Text);
+            var lblCell = (Label)sender;
+            var I = YearGrid.Find(lblCell.Content as string);
             if (I < 0) return;
 
             Value = new DateTime(I, Value.Month, 1);
@@ -307,7 +313,7 @@ namespace ExtraFunctions.ExComponents
             Update();
         }
 
-        private static void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
+        private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
         {
             // Find the TextBox
             DependencyObject parent = e.OriginalSource as UIElement;
@@ -316,39 +322,137 @@ namespace ExtraFunctions.ExComponents
 
             if (parent != null)
             {
-                var textBox = (TextBox)parent;
-                if (!textBox.IsKeyboardFocusWithin)
+                var TextBox = (TextBox)parent;
+                if (!TextBox.IsKeyboardFocusWithin)
                 {
-                    // If the text box is not yet focussed, give it the focus and
+                    // If the Content box is not yet focussed, give it the focus and
                     // stop further processing of this click event.
-                    textBox.Focus();
+                    TextBox.Focus();
                     e.Handled = true;
                 }
             }
         }
 
-        private static void SelectAllText(object sender, RoutedEventArgs e)
+        private void SelectAllContent(object sender, RoutedEventArgs e)
         {
-            if (e.OriginalSource is TextBox textBox)
-                textBox.SelectAll();
+            if (e.OriginalSource is TextBox TextBox)
+                TextBox.SelectAll();
         }
     }
 
-    internal class Week
+    internal class Day
     {
-        public static Grid WeekGrid = new Grid() { Margin = new Thickness(5, 0, 10, 0) };
+        public Label Sun { get; private set; } = new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Right, Padding = new Thickness(0), Margin = new Thickness(0) };
+        public Label Mon { get; private set; } = new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Right, Padding = new Thickness(0), Margin = new Thickness(0) };
+        public Label Tue { get; private set; } = new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Right, Padding = new Thickness(0), Margin = new Thickness(0) };
+        public Label Wed { get; private set; } = new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Right, Padding = new Thickness(0), Margin = new Thickness(0) };
+        public Label Thu { get; private set; } = new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Right, Padding = new Thickness(0), Margin = new Thickness(0) };
+        public Label Fri { get; private set; } = new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Right, Padding = new Thickness(0), Margin = new Thickness(0) };
+        public Label Sat { get; private set; } = new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Right, Padding = new Thickness(0), Margin = new Thickness(0) };
 
-        static Week()
+        internal MouseButtonEventHandler SelectCell = (sender, e) => { };
+
+        public enum Tag
+        {
+            Today,
+            This,
+            Next,
+            Pre,
+        }
+
+        public void Add(int Day, DayOfWeek DayOfWeek, int Row, Tag Tag)
+        {
+            var Colour = Tag == Tag.This ? Brushes.Black : Brushes.Gray;
+            if (Tag == Tag.Today) { Tag = Tag.This; Colour = Brushes.Blue; }
+
+            switch (DayOfWeek)
+            {
+                case DayOfWeek.Sunday:
+                    Grid.SetColumn(Sun, 0);
+                    Grid.SetRow(Sun, Row);
+                    Sun.Content = Day.ToString();
+                    Sun.Foreground = Colour;
+                    Sun.Tag = Tag;
+                    Sun.MouseLeftButtonDown += SelectCell;
+                    break;
+                case DayOfWeek.Monday:
+                    Grid.SetColumn(Mon, 1);
+                    Grid.SetRow(Mon, Row);
+                    Mon.Content = Day.ToString();
+                    Mon.Foreground = Colour;
+                    Mon.Tag = Tag;
+                    Mon.MouseLeftButtonDown += SelectCell;
+                    break;
+                case DayOfWeek.Tuesday:
+                    Grid.SetColumn(Tue, 2);
+                    Grid.SetRow(Tue, Row);
+                    Tue.Content = Day.ToString();
+                    Tue.Foreground = Colour;
+                    Tue.Tag = Tag;
+                    Tue.MouseLeftButtonDown += SelectCell;
+                    break;
+                case DayOfWeek.Wednesday:
+                    Grid.SetColumn(Wed, 3);
+                    Grid.SetRow(Wed, Row);
+                    Wed.Content = Day.ToString();
+                    Wed.Foreground = Colour;
+                    Wed.Tag = Tag;
+                    Wed.MouseLeftButtonDown += SelectCell;
+                    break;
+                case DayOfWeek.Thursday:
+                    Grid.SetColumn(Thu, 4);
+                    Grid.SetRow(Thu, Row);
+                    Thu.Content = Day.ToString();
+                    Thu.Foreground = Colour;
+                    Thu.Tag = Tag;
+                    Thu.MouseLeftButtonDown += SelectCell;
+                    break;
+                case DayOfWeek.Friday:
+                    Grid.SetColumn(Fri, 5);
+                    Grid.SetRow(Fri, Row);
+                    Fri.Content = Day.ToString();
+                    Fri.Foreground = Colour;
+                    Fri.Tag = Tag;
+                    Fri.MouseLeftButtonDown += SelectCell;
+                    break;
+                case DayOfWeek.Saturday:
+                    Grid.SetColumn(Sat, 6);
+                    Grid.SetRow(Sat, Row);
+                    Sat.Content = Day.ToString();
+                    Sat.Foreground = Colour;
+                    Sat.Tag = Tag;
+                    Sat.MouseLeftButtonDown += SelectCell;
+                    break;
+            }
+        }
+
+        public void Select(int Day, Tag Tag)
+        {
+            ToList().ForEach(x => { x.Background = Brushes.White; x.BorderBrush = Brushes.White; });
+            var lbl = ToList().FirstOrDefault(x => x.Content as string == Day.ToString() && (Tag)(x.Tag ?? Tag.This) == Tag) ??
+                new Label();
+            lbl.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#cce8ff"));
+            lbl.BorderBrush = Brushes.CornflowerBlue;
+        }
+
+        public List<Label> ToList() => new List<Label>() { Sun, Mon, Tue, Wed, Thu, Fri, Sat };
+    }
+
+    internal class Week 
+    {
+        public Grid WeekGrid = new Grid() { Margin = new Thickness(5, 0, 10, 0) };
+
+        public Week()
         {
             WeekGrid.Children.Clear();
             List<TextBlock> Headers = new List<TextBlock>() {
-                new TextBlock() { Text = "Sun", TextAlignment = TextAlignment.Center, },
-                new TextBlock() { Text = "Mon", TextAlignment = TextAlignment.Center, },
-                new TextBlock() { Text = "Tue", TextAlignment = TextAlignment.Center, },
-                new TextBlock() { Text = "Wed", TextAlignment = TextAlignment.Center, },
-                new TextBlock() { Text = "Thu", TextAlignment = TextAlignment.Center, },
-                new TextBlock() { Text = "Fri", TextAlignment = TextAlignment.Center, },
-                new TextBlock() { Text = "Sat", TextAlignment = TextAlignment.Center, },
+                new TextBlock() { Text = "Sun", TextAlignment = TextAlignment.Center },
+                new TextBlock() { Text = "Mon", TextAlignment = TextAlignment.Center },
+                new TextBlock() { Text = "Tue", TextAlignment = TextAlignment.Center },
+                new TextBlock() { Text = "Wed", TextAlignment = TextAlignment.Center },
+                new TextBlock() { Text = "Thu", TextAlignment = TextAlignment.Center },
+                new TextBlock() { Text = "Fri", TextAlignment = TextAlignment.Center },
+                new TextBlock() { Text = "Sat", TextAlignment = TextAlignment.Center },
             };
 
             var GridStyle = new Style(typeof(Grid));
@@ -380,122 +484,29 @@ namespace ExtraFunctions.ExComponents
             Grid.SetColumnSpan(GridBorder, 7);
             WeekGrid.Children.Add(GridBorder);
         }
-
-        public TextBlock Sun { get; private set; } = new TextBlock() { TextAlignment = TextAlignment.Right, };
-        public TextBlock Mon { get; private set; } = new TextBlock() { TextAlignment = TextAlignment.Right, };
-        public TextBlock Tue { get; private set; } = new TextBlock() { TextAlignment = TextAlignment.Right, };
-        public TextBlock Wed { get; private set; } = new TextBlock() { TextAlignment = TextAlignment.Right, };
-        public TextBlock Thu { get; private set; } = new TextBlock() { TextAlignment = TextAlignment.Right, };
-        public TextBlock Fri { get; private set; } = new TextBlock() { TextAlignment = TextAlignment.Right, };
-        public TextBlock Sat { get; private set; } = new TextBlock() { TextAlignment = TextAlignment.Right, };
-
-        internal MouseButtonEventHandler SelectCell = (sender, e) => { };
-
-        public enum Tag
-        {
-            Today,
-            This,
-            Next,
-            Pre,
-        }
-
-        public void Add(int Day, DayOfWeek DayOfWeek, int Row, Tag Tag)
-        {
-            var Colour = Tag == Tag.This ? Brushes.Black : Brushes.Gray;
-            if (Tag == Tag.Today) { Tag = Tag.This; Colour = Brushes.Blue; }
-
-            switch (DayOfWeek)
-            {
-                case DayOfWeek.Sunday:
-                    Grid.SetColumn(Sun, 0);
-                    Grid.SetRow(Sun, Row);
-                    Sun.Text = Day.ToString();
-                    Sun.Foreground = Colour;
-                    Sun.Tag = Tag;
-                    Sun.MouseLeftButtonDown += SelectCell;
-                    break;
-                case DayOfWeek.Monday:
-                    Grid.SetColumn(Mon, 1);
-                    Grid.SetRow(Mon, Row);
-                    Mon.Text = Day.ToString();
-                    Mon.Foreground = Colour;
-                    Mon.Tag = Tag;
-                    Mon.MouseLeftButtonDown += SelectCell;
-                    break;
-                case DayOfWeek.Tuesday:
-                    Grid.SetColumn(Tue, 2);
-                    Grid.SetRow(Tue, Row);
-                    Tue.Text = Day.ToString();
-                    Tue.Foreground = Colour;
-                    Tue.Tag = Tag;
-                    Tue.MouseLeftButtonDown += SelectCell;
-                    break;
-                case DayOfWeek.Wednesday:
-                    Grid.SetColumn(Wed, 3);
-                    Grid.SetRow(Wed, Row);
-                    Wed.Text = Day.ToString();
-                    Wed.Foreground = Colour;
-                    Wed.Tag = Tag;
-                    Wed.MouseLeftButtonDown += SelectCell;
-                    break;
-                case DayOfWeek.Thursday:
-                    Grid.SetColumn(Thu, 4);
-                    Grid.SetRow(Thu, Row);
-                    Thu.Text = Day.ToString();
-                    Thu.Foreground = Colour;
-                    Thu.Tag = Tag;
-                    Thu.MouseLeftButtonDown += SelectCell;
-                    break;
-                case DayOfWeek.Friday:
-                    Grid.SetColumn(Fri, 5);
-                    Grid.SetRow(Fri, Row);
-                    Fri.Text = Day.ToString();
-                    Fri.Foreground = Colour;
-                    Fri.Tag = Tag;
-                    Fri.MouseLeftButtonDown += SelectCell;
-                    break;
-                case DayOfWeek.Saturday:
-                    Grid.SetColumn(Sat, 6);
-                    Grid.SetRow(Sat, Row);
-                    Sat.Text = Day.ToString();
-                    Sat.Foreground = Colour;
-                    Sat.Tag = Tag;
-                    Sat.MouseLeftButtonDown += SelectCell;
-                    break;
-            }
-        }
-
-        public void Select(int Day, Tag Tag)
-        {
-            ToList().ForEach(x => x.Background = Brushes.White);
-            (ToList().FirstOrDefault(x => x.Text == Day.ToString() && (Tag)(x.Tag ?? Tag.This) == Tag) ??
-                new TextBlock()).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#cce8ff"));
-        }
-
-        public List<TextBlock> ToList() => new List<TextBlock>() { Sun, Mon, Tue, Wed, Thu, Fri, Sat };
     }
 
     internal class Month
     {
-        public static Grid MonthGrid = new Grid() { Margin = new Thickness(0, 15, 0, 0), IsEnabled = false };
-        internal static MouseButtonEventHandler SelectCell { set { Values.ForEach(x => x.MouseDown += value); } }
+        public Grid MonthGrid = new Grid() { Margin = new Thickness(0, 15, 0, 0), IsEnabled = false };
+        internal MouseButtonEventHandler SelectCell { set { Values.ForEach(x => x.MouseDown += value); } }
 
-        static List<TextBlock> Values = new List<TextBlock>() {
-            new TextBlock() { Text = "Jan", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "Feb", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "Mar", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "Apr", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "May", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "Jun", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "Jul", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "Aug", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "Sep", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "Oct", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "Nov", TextAlignment = TextAlignment.Center, },
-            new TextBlock() { Text = "Dec", TextAlignment = TextAlignment.Center, },
+        List<Label> Values = new List<Label>() {
+            new Label() { Content = "Jan", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "Feb", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "Mar", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "Apr", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "May", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "Jun", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "Jul", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "Aug", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "Sep", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "Oct", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "Nov", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { Content = "Dec", BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
         };
 
-        static Month()
+        public Month()
         {
             MonthGrid.Children.Clear();
             var GridStyle = new Style(typeof(Grid));
@@ -530,55 +541,57 @@ namespace ExtraFunctions.ExComponents
             }
         }
 
-        public static int Find(string Text)
+        public int Find(string Content)
         {
-            var edt = Values.FirstOrDefault(x => x.Text == Text);
+            var edt = Values.FirstOrDefault(x => x.Content as string == Content);
             if (edt == null) return -1;
             return Values.IndexOf(edt) + 1;
         }
 
-        public static void Select(int Month)
+        public void Select(int Month)
         {
             Values.ForEach(x => x.Background = Brushes.White);
-            (Values.FirstOrDefault(x => x.Text == ExFun.ToMonth(Month)) ??
-                new TextBlock()).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#cce8ff"));
+            var lbl = Values.FirstOrDefault(x => x.Content as string == ExFun.ToMonth(Month)) ??
+                new Label();
+            lbl.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#cce8ff"));
+            lbl.BorderBrush = Brushes.CornflowerBlue;
         }
     }
 
     internal class Year
     {
-        public static Grid YearGrid = new Grid() { Margin = new Thickness(0, 15, 0, 0), IsEnabled = false };
-        internal static MouseButtonEventHandler SelectCell { set { Values.ForEach(x => x.MouseDown += value); } }
-        public static int Min { 
-            get { return int.Parse(Values[1].Text); }
+        public Grid YearGrid = new Grid() { Margin = new Thickness(0, 15, 0, 0), IsEnabled = false };
+        internal MouseButtonEventHandler SelectCell { set { Values.ForEach(x => x.MouseDown += value); } }
+        public int Min { 
+            get { return int.Parse(Values[1].Content as string); }
             set
             {
                 var L = value - 2;
                 for (int I = 0; I < 12; I++)
                 {
                     L++;
-                    Values[I].Text = L.ToString();
+                    Values[I].Content = L.ToString();
                     if (L <= value - 1 || L >= value + 10) Values[I].Foreground = Brushes.Gray;
                 }
             }
         }
 
-        static List<TextBlock> Values = new List<TextBlock>() {
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
-            new TextBlock() { TextAlignment = TextAlignment.Center, },
+        List<Label> Values = new List<Label>() {
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
+            new Label() { BorderThickness = new Thickness(1), HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Padding = new Thickness(0), Margin = new Thickness(0) },
         };
 
-        static Year()
+        public Year()
         {
             YearGrid.Children.Clear();
             var GridStyle = new Style(typeof(Grid));
@@ -613,18 +626,20 @@ namespace ExtraFunctions.ExComponents
             }
         }
 
-        public static int Find(string Text)
+        public int Find(string Content)
         {
-            var edt = Values.FirstOrDefault(x => x.Text == Text);
+            var edt = Values.FirstOrDefault(x => x.Content as string == Content);
             if (edt == null) return -1;
-            return int.Parse(edt.Text);
+            return int.Parse(edt.Content as string);
         }
 
-        public static void Select(int Year)
+        public void Select(int Year)
         {
             Values.ForEach(x => x.Background = Brushes.White);
-            (Values.FirstOrDefault(x => x.Text == Year.ToString()) ??
-                new TextBlock()).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#cce8ff"));
+            var lbl = Values.FirstOrDefault(x => x.Content as string == Year.ToString()) ??
+                new Label();
+            lbl.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#cce8ff"));
+            lbl.BorderBrush = Brushes.CornflowerBlue;
         }
     }
 }
