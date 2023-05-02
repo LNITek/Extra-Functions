@@ -5,7 +5,7 @@
 * Changed : Swapped TextBlock Out For Label In `DatePicker` For Better Visuals.
 * Fixed : You Can Now Have More Than One `DatePicker`.
 * Fixed : `Critical Icon` Is Now Usabel.
-* Fixed : `FindBox` Will Now Show At TartgetControl Insted Of Its Parent.
+* Fixed : `FindBox` Will Now Show At TartgetControl Instead Of Its Parent.
 
 # V1.5.0
 * Added : `Critical` Icon For `MessagePrompt`.
