@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net6.0;netstandard2.0</TargetFrameworks>
+	  <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>ExtraFunctions</PackageId>
+    <Title>Extra Functions</Title>
+    <Version>2.0.0.22-Pre-release</Version>
+    <Authors>LNI.Tek</Authors>
+    <Description>Extra Functions Is As You Guessed It, Full Of Extra Thing To Help Improve Or Simplify Your Coding Experience.
+Extra Functions Helps By Added Features And Or Functions That Does Not Exits.</Description>
+    <Copyright></Copyright>
+    <PackageProjectUrl>https://github.com/LNITek/Extra-Functions</PackageProjectUrl>
+    <PackageIcon>Logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/LNITek/Extra-Functions</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Extra, Functions, List, Features</PackageTags>
+    <PackageReleaseNotes>Check The Change Log!
+https://github.com/Tekknow1580/Extra-Functions/blob/main/ChangeLog.md</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <IncludeSymbols>False</IncludeSymbols>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extras\ExList - Copy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\Logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="Extras\ExList - Copy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+  </ItemGroup>
+
+</Project>
