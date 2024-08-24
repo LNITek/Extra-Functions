@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Extra Functions Source Generators</Title>
+    <Version>0.3.6.9-Beta</Version>
+    <Authors>LNI.Tek</Authors>
+    <Company>$(Authors)</Company>
+    <Description>Extra Functions Is As You Guessed It, Full Of Extra Thing To Help Improve Or Simplify Your Coding Experience.
+Extra Functions Source Generators Helps By Adding Auto Code Generators To Improve And Or Simplyfy Your Code.</Description>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <IncludePackageReferencesDuringMarkupCompilation>true</IncludePackageReferencesDuringMarkupCompilation>
+    <RootNamespace>ExtraFunctions</RootNamespace>
+    <PackageProjectUrl>https://github.com/LNITek/Extra-Functions</PackageProjectUrl>
+    <PackageIcon>Logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/LNITek/Extra-Functions</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Extra, Functions, Settings, Property Changed, Attributes</PackageTags>
+    <PackageReleaseNotes>Check The Change Log!
+https://github.com/Tekknow1580/Extra-Functions/blob/main/ChangeLog.md</PackageReleaseNotes>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <!-- Package the generator in the analyzer directory of the nuget package -->
+    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="true" />
+    <None Include="..\Logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ExSettings\Settings.setx">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,11 +1,11 @@
-# Extra Functions
+# Extra Functions Database
 
 [![NuGet](https://img.shields.io/nuget/v/ExtraFunctions.svg)](https://www.nuget.org/packages/ExtraFunctions/) ![Nuget](https://img.shields.io/nuget/dt/ExtraFunctions)
 
 ## Welcome To Extra Functions
 Extra Functions Is As You Guessed It, Full Of Extra Thing To Help Improve Or Simplify Your Coding Experience.
 <br/>
-Extra Functions Is A Fairly Large Library But Has A Lot Packed Into It. Ranging From Input Prompts To Custom Components.
+Extra Functions Database Is An Unserversal Database Manager That Helps Manage And Controll Your Database.
 <br/>
 
 Check The `Content Table` Down Below Or Look At The [Documentasion](https://github.com/LNITek/Extra-Functions/wiki) To See How These Bells and Whistles Work.
@@ -16,8 +16,8 @@ Have An Issue Or Feature In Mind Visit : [Issues And Features](https://github.co
 
 ## Installation
 ```
-Install-Package ExtraFunctions
+Install-Package ExtraFunctions.ExDatabase
 ```
 
-## Content
+### Database Manager
 ** **Coming Soon** **

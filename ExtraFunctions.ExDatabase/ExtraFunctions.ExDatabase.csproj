@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Extra Functions Database</Title>
+    <Version>0.3.11-Pre-release</Version>
+    <Authors>LNI.Tek</Authors>
+    <Description>Extra Functions Is As You Guessed It, Full Of Extra Thing To Help Improve Or Simplify Your Coding Experience.
+Extra Functions Database Is An Unserversal Database Manager That Helps Manage And Controll Your Database.</Description>
+    <PackageProjectUrl>https://github.com/LNITek/Extra-Functions</PackageProjectUrl>
+    <PackageIcon>Logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/LNITek/Extra-Functions</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Extra, Functions, Unerversal, Database, Management</PackageTags>
+    <PackageReleaseNotes>Check The Change Log!
+https://github.com/Tekknow1580/Extra-Functions/blob/main/ChangeLog.md</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Interfaces\SQLIte3.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="Interfaces\SQLIte3.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE.txt">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+    <None Update="Logo.png">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+    <None Update="README.md">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+  </ItemGroup>
+
+</Project>
